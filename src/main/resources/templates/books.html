@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+    <title>Books</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<main role="main" class="flex-shrink-0">
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4">Books</h1>
+
+            <div th:each="b : ${allBooks}">
+                <h3 th:text="${b.id}"></h3>
+                <p th:text="${b.author}"></p>
+                <p th:text="${b.category}"></p>
+                <p th:text="${b.title}"></p>
+                <p th:text="${b.publicationDate}"></p>
+                <p th:text="${b.rating}"></p>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<div class="container-fluid"></div>
+<div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

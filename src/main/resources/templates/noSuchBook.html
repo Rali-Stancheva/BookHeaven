@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+  <title>No Such Book</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+<div style="text-align: center;">
+<h1>No Such Book Found</h1>
+<p>Please enter a valid name to find books.</p>
+</div>
+
+<div class="container-fluid"></div>
+<div>
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>
