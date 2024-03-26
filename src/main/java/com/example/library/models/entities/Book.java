@@ -16,13 +16,13 @@ public class Book {
     private String title;
 
     @Column(name = "publication_date")
-    private LocalDate publicationDate;
+    private LocalDate publication_date;
 
     @Column(name = "description")
     private String description;
 
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
@@ -31,6 +31,11 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+
+    @Column(name = "image_URL")
+    private String imageUrl;
+
 
 
     public Long getId() {
@@ -49,12 +54,12 @@ public class Book {
         this.title = title;
     }
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
+    public LocalDate getPublication_date() {
+        return publication_date;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setPublication_date(LocalDate publicationDate) {
+        this.publication_date = publicationDate;
     }
 
     public String getDescription() {
@@ -65,11 +70,11 @@ public class Book {
         this.description = description;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -88,4 +93,13 @@ public class Book {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 }

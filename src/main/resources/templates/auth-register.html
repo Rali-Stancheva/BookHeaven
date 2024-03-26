@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+    <title>BookDB</title>
+</head>
+
+<body>
+
+<div>
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
+</div>
+
+<div class="container">
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <h2 class="text-center text-black">Register User</h2>
+    <form class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+          method="POST" th:action="@{/users/register/save}" th:object="${userRegistrationDTO}">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="firstName" class="text-black font-weight-bold">Username</label>
+                <input id="firstName" type="text" class="form-control"
+                       th:field="*{username}"
+                       th:errorclass="'is-invalid alert-danger'"
+                       placeholder="Username"/>
+                <p class="errors alert alert-danger invalid-feedback">
+                    Username is required with length between 2 and 20 symbols.
+                </p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="email" class="text-black font-weight-bold">Email</label>
+                <input id="email" type="email" class="form-control"
+                       th:field="*{email}"
+                       th:errorclass="'is-invalid alert-danger'"
+                       placeholder="Email"/>
+                <p class="errors alert alert-danger invalid-feedback">
+                    Please enter a valid email address!
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="password" class="text-black font-weight-bold">Password</label>
+                <input id="password" type="password" class="form-control"
+                       th:field="*{password}"
+                       th:errorclass="'is-invalid alert-danger'"
+                       placeholder="Password"/>
+                <p class="errors alert alert-danger invalid-feedback">
+                    Password is required.
+                </p>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="confirmPassword" class="text-black font-weight-bold">Confirm Password</label>
+                <input id="confirmPassword" type="password" class="form-control"
+                       th:field="*{confirmPassword}"
+                       th:errorclass="'is-invalid alert-danger'"
+                       placeholder="Confirm Password"/>
+                <p class="errors alert alert-danger invalid-feedback">
+                    Password confirmation is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+
+</body>
+
+</html>

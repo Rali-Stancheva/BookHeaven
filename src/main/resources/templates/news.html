@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+  <title>News</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+<main role="main" class="flex-shrink-0">
+  <div class="container mt-5">
+    <div class="jumbotron">
+      <h1 class="display-4">News</h1>
+
+      <div th:each="n : ${allNews}">
+        <h3 th:text="${n.id}"></h3>
+        <p th:text="${n.title}"></p>
+        <p th:text="${n.content}"></p>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<div class="container-fluid"></div>
+<div>
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

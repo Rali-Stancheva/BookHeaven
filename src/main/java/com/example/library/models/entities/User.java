@@ -1,6 +1,7 @@
 package com.example.library.models.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "Users")
@@ -10,55 +11,76 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String username;
+
     @Column(nullable = false, name = "email")
     private String email;
 
     @Column(nullable = false, name = "password")
     private String password;
 
-    @Column(nullable = false, name = "isAdmin")
-    private Boolean isAdmin;
 
-    @Column(nullable = false, name = "isGuest")
-    private Boolean isGuest;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
+    @ManyToOne(targetEntity = UserRole.class)
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private UserRole role;
+
+
+    public User() {}
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public User setId(Long id) {
         this.id = id;
+        return this;
     }
+
+    public String getUsername() {
+        return username;
+    }
+    public User setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
 
     public String getEmail() {
         return email;
     }
-
-    public void setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
+        return this;
     }
+
 
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public Boolean getAdmin() {
-        return isAdmin;
+
+    public boolean isActive() {
+        return isActive;
+    }
+    public User setActive(boolean active) {
+        isActive = active;
+        return this;
     }
 
-    public void setAdmin(Boolean admin) {
-        isAdmin = admin;
+    public UserRole getRole() {
+        return role;
     }
 
-    public Boolean getGuest() {
-        return isGuest;
-    }
-
-    public void setGuest(Boolean guest) {
-        isGuest = guest;
+    public User setRole(UserRole role) {
+        this.role = role;
+        return this;
     }
 }

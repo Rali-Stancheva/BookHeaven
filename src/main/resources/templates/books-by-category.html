@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Books</title>
+</head>
+<body>
+<h1>Books in category: <span th:text="${categoryName}"></span></h1>
+<ul>
+  <!-- Итерирайте през списъка с книги и изведете информацията за всяка книга -->
+  <li th:each="b : ${book}">
+    <span th:text="${b.title}"></span> by <span th:text="${b.author.getName()}"></span>
+  </li>
+</ul>
+</body>
+</html>

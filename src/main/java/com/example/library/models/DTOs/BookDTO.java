@@ -2,27 +2,32 @@ package com.example.library.models.DTOs;
 
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Category;
+import com.example.library.models.entities.Lists;
 
 import java.time.LocalDate;
 
 public class BookDTO {
     private Long id;
     private String title;
-    private LocalDate publicationDate;
+    private LocalDate publication_date;
     private String description;
-    private Integer rating;
+    private Double rating;
     private Author author;
     private Category category;
+    private String imageUrl;
 
 
-    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Integer rating, Author author, Category category) {
+
+    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String imageUrl) {
         this.id = id;
         this.title = title;
-        this.publicationDate = publicationDate;
+        this.publication_date = publicationDate;
         this.description = description;
         this.rating = rating;
         this.author = author;
         this.category = category;
+        this.imageUrl = imageUrl;
+
     }
 
 
@@ -42,12 +47,12 @@ public class BookDTO {
         this.title = title;
     }
 
-    public LocalDate getPublicationDate() {
-        return publicationDate;
+    public LocalDate getPublication_date() {
+        return publication_date;
     }
 
-    public void setPublicationDate(LocalDate publicationDate) {
-        this.publicationDate = publicationDate;
+    public void setPublication_date(LocalDate publication_date) {
+        this.publication_date = publication_date;
     }
 
     public String getDescription() {
@@ -58,11 +63,11 @@ public class BookDTO {
         this.description = description;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
@@ -81,4 +86,14 @@ public class BookDTO {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
 }

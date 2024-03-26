@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+  <title>Reading List</title>
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+<div class="container">
+  <h1>Reading List</h1><br><br><br><br>
+
+  <div th:if="${readBooks.isEmpty()}" class="alert alert-info" role="alert">
+    <p>No books added to the reading list yet.</p>
+  </div>
+
+  <div class="book-list">
+    <ul>
+      <li th:each="book : ${readBooks}">
+        <span th:text="${book.title}">Book Title</span>
+        <form th:action="@{'/books/remove-from-read/' + ${book.id} + '/' + ${@currentUser.id}}" method="post">
+          <button type="submit">Remove</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

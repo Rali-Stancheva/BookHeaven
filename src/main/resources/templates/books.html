@@ -14,10 +14,10 @@
 
             <div th:each="b : ${allBooks}">
                 <h3 th:text="${b.id}"></h3>
-                <p th:text="${b.author}"></p>
-                <p th:text="${b.category}"></p>
+                <p th:text="${b.author.getName()}"></p>
+                <p th:text="${b.category.getName()}"></p>
                 <p th:text="${b.title}"></p>
-                <p th:text="${b.publicationDate}"></p>
+                <p th:text="${b.publication_date}"></p>
                 <p th:text="${b.rating}"></p>
             </div>
 

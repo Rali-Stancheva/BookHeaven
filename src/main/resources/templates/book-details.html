@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}">
+    <title>Book Heaven</title>
+</head>
+<body>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+
+
+    <div class="container">
+        <div class="book-img">
+            <img th:src="@{${book.imageUrl}}">
+
+            <!--WANT-TO-READ BUTTON-->
+            <div class="book-readed-or-for-reading">
+
+                <div class="readed" th:if="${@currentUser.isLogged()}">
+                    <form th:action="@{'/books/add-to-read/' + ${@currentUser.getId()} + '/' + ${book.id}}" method="post">
+                        <button type="submit" class="btn-readed-book">Readed</button>
+                    </form>
+                </div>
+
+
+                <div class="readed" th:unless="${@currentUser.isLogged()}">
+                    <a th:href="@{/users/login}" class="btn-readed-book">Readed</a>
+                </div>
+
+
+                <div class="for-reading" th:if="${@currentUser.isLogged()}">
+                    <form th:action="@{'/books/add-to-for-reading/' + ${@currentUser.getId()} + '/' + ${book.id}}" method="post">
+                        <button type="submit" class="btn-for-reading">For Reading</button>
+                    </form>
+                </div>
+                <div class="for-reading" th:unless="${@currentUser.isLogged()}">
+                    <a th:href="@{/users/login}" class="btn-for-reading">For Reading</a>
+                </div>
+
+            </div>
+
+            <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                <p th:text="${successMessage}"></p>
+            </div>
+            <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+                <p th:text="${errorMessage}">Error</p>
+            </div>
+        </div>
+
+        <div class="book-info-container">
+            <div class="book-info">
+                <h1 th:text="${book.title}"></h1>
+                <p th:text="${book.author}"></p>
+                <p>Rating: <span th:text="${book.rating}"></span></p>
+                <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br> <br><br>
+                <p th:text="${book.description}"></p>
+             </div>
+        </div>
+
+
+
+    </div>
+
+
+</body>
+</html>
