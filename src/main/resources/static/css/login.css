@@ -1,0 +1,59 @@
+.login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #c26236;
+    border-radius: 10px;
+    width: 600px;
+    height: 400px;
+    margin: 100px;
+    margin-left: 450px;
+}
+
+.submit-btn {
+    border: 1px solid #c26236;
+    background-color: white;
+    border-radius: 50px;
+    margin-top: 20px;
+    width: 500px;
+    padding: 6px 172px;
+}
+
+.submit-btn:hover{
+    background-color: #c26236;
+    border:none;
+    color: white;
+}
+
+.form-control{
+    border-radius: 50px;
+}
+
+
+.register-btn,
+.forgot-btn {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    margin-right: 18px;
+    margin-left: 55px;
+
+}
+
+.register-btn:hover,
+.forgot-btn:hover{
+    color:  #c26236;
+
+}
+
+.register,
+.forgot-password{
+    margin-top: 20px;
+    padding: 10px;
+
+}
+
+.error{
+    color: red;
+    margin-left: 12px;
+}

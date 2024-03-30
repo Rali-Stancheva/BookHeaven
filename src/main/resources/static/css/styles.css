@@ -133,7 +133,7 @@ body{
 }
 
 .container{
-    margin-top: 50px;;
+    margin-top: 50px;
 }
 
 .category-container {
@@ -216,3 +216,6 @@ body{
     width: 90%;
     height: 100%; /* Fill the container height */
 }
+
+
+/*LOGIN PAGE - auth-login.html*/

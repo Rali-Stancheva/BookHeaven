@@ -7,6 +7,7 @@ import com.example.library.services.EmailService;
 import com.example.library.services.EmailServiceImpl;
 import com.example.library.services.UserServiceImpl;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -47,7 +49,7 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegistrationDTO", userRegistrationDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDTO", bindingResult);
-
+            redirectAttributes.addFlashAttribute("badCredentials", true);
             return "redirect:/users/register";
         }
 
@@ -64,7 +66,6 @@ public class AuthController {
 
         return "redirect:/users/login";
     }
-
 
 
     @ModelAttribute("badCredentials")
@@ -94,9 +95,9 @@ public class AuthController {
             return "redirect:/users/login";
         }
 
-
         return "redirect:/";
     }
+
 
 
 
@@ -108,16 +109,18 @@ public class AuthController {
 
 
     @PostMapping("/reset-password")
-    public String sendResetPasswordCode(@RequestParam("email") String email) {
+    public String sendResetPasswordCode(@RequestParam("email") String email,  RedirectAttributes redirectAttributes) {
+        if (email.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Invalid email address!");
+            return "redirect:/users/reset-password";
+        }
+
          userService.requestPasswordReset();
          userService.sendResetPasswordCode(email);
 
 
         return "redirect:/users/login?password_reset=true";
     }
-
-
-
 
     @PostMapping("/logout")
     public String logout() {
