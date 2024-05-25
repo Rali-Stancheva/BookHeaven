@@ -1,6 +1,7 @@
-package com.example.library.services;
+package com.example.library.services.impl;
 
 
+import com.example.library.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
-    public class EmailServiceImpl implements EmailService{
+    public class EmailServiceImpl implements EmailService {
         @Autowired
         private JavaMailSender javaMailSender;
 

@@ -1,9 +1,11 @@
-package com.example.library.services;
+package com.example.library.services.impl;
 
 import com.example.library.models.DTOs.UserLoginDTO;
 import com.example.library.models.DTOs.UserRegistrationDTO;
 import com.example.library.models.entities.User;
 import com.example.library.repositories.UserRepository;
+import com.example.library.services.EmailService;
+import com.example.library.services.UserService;
 import com.example.library.util.CurrentUser;
 
 import com.example.library.util.UserForm;
@@ -15,7 +17,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserRoleServiceImpl userRoleService;
     private final PasswordEncoder passwordEncoder;

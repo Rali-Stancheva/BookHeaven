@@ -1,30 +1,21 @@
-package com.example.library.models.entities;
+package com.example.library.models.DTOs;
 
+import com.example.library.models.entities.Book;
+import com.example.library.models.entities.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "Reviews")
-public class Review {
+public class ReviewDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "comments")
     private String comments;
 
-
-    @Column(nullable = false, name = "post_date")
     private LocalDate postDate;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
 

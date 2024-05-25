@@ -1,8 +1,9 @@
-package com.example.library.services;
+package com.example.library.services.impl;
 
 import com.example.library.models.DTOs.NewsDTO;
 import com.example.library.models.entities.News;
 import com.example.library.repositories.NewsRepository;
+import com.example.library.services.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,12 +29,20 @@ public class NewsServiceImpl implements NewsService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public NewsDTO convertToDTO(News news) {
         return new NewsDTO(
                 news.getId(),
                 news.getTitle(),
-                news.getContent()
+                news.getContent(),
+                news.getDate()
         );
+    }
+
+
+    @Override
+    public void addNews(News news) {
+        newsRepository.save(news);
     }
 }

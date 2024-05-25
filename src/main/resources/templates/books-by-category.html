@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
+
+<head th:replace="~{fragments/head :: head}">
   <title>Books</title>
 </head>
+
 <body>
-<h1>Books in category: <span th:text="${categoryName}"></span></h1>
-<ul>
-  <!-- Итерирайте през списъка с книги и изведете информацията за всяка книга -->
-  <li th:each="b : ${book}">
-    <span th:text="${b.title}"></span> by <span th:text="${b.author.getName()}"></span>
-  </li>
-</ul>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
+
+<h3 class="title-text"><span th:text="${categoryName.toUpperCase()}"></span></h3>
+
+<div class="book-container">
+  <div class="book-row" th:each="b : ${book}">
+     <div class="img-container">
+       <img class="img-book-by-category" th:src="@{${b.imageUrl}}">
+     </div>
+    <div class="book-text">
+      <span th:text="${b.title}"></span> by <span th:text="${b.author.getName()}"></span><br>
+    </div>
+
+      <div class="book-readed-or-for-reading">
+          <div class="see-more-info" th:if="${@currentUser.isLogged()}">
+              <form th:action="@{'/books/' + ${b.id}}">
+                  <button type="submit" class="btn-see-more-info">See more</button>
+              </form>
+          </div>
+
+          <div class="see-more-info" th:unless="${@currentUser.isLogged()}">
+              <a th:href="@{/users/login}" class="btn-see-more-info">See more</a>
+          </div>
+
+
+
+
+          <div class="readed" th:if="${@currentUser.isLogged()}">
+              <form th:action="@{'/books/add-to-read/' + ${@currentUser.getId()} + '/' + ${b.id}}" method="post">
+                  <button type="submit" class="btn-readed-book">Read</button>
+              </form>
+          </div>
+
+          <div class="readed" th:unless="${@currentUser.isLogged()}">
+              <a th:href="@{/users/login}" class="btn-readed-book">Read</a>
+          </div>
+
+          <div class="for-reading" th:if="${@currentUser.isLogged()}">
+              <form th:action="@{'/books/add-to-for-reading/' + ${@currentUser.getId()} + '/' + ${b.id}}" method="post">
+                  <button type="submit" class="btn-for-reading">For Reading</button>
+              </form>
+          </div>
+          <div class="for-reading" th:unless="${@currentUser.isLogged()}">
+              <a th:href="@{/users/login}" class="btn-for-reading">For Reading</a>
+          </div>
+      </div>
+
+  </div>
+</div>
+
+
 </body>
 </html>

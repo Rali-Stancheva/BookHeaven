@@ -1,6 +1,8 @@
 package com.example.library.models.DTOs;
 
 
+import java.time.LocalDate;
+
 public class NewsDTO {
 
     private Long id;
@@ -9,11 +11,14 @@ public class NewsDTO {
 
     private String content;
 
+    private LocalDate date;
 
-    public NewsDTO(Long id, String title, String content) {
+
+    public NewsDTO(Long id, String title, String content,  LocalDate date) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.date = date;
     }
 
 
@@ -39,5 +44,13 @@ public class NewsDTO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

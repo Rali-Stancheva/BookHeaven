@@ -37,6 +37,19 @@ public class Book {
     private String imageUrl;
 
 
+    public Book() {
+
+    }
+
+    public Book(String title, LocalDate publication_date, String description, Double rating, Author author, Category category, String imageUrl) {
+        this.title = title;
+        this.publication_date = publication_date;
+        this.description = description;
+        this.rating = rating;
+        this.author = author;
+        this.category = category;
+        this.imageUrl = imageUrl;
+    }
 
     public Long getId() {
         return id;

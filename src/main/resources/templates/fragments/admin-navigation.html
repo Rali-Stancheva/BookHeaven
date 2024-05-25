@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Heaven</title>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light custom-bg-color" th:fragment="admin-navigation">
+  <a class="navbar-brand" th:href="@{/admin-page}">Book Heaven</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" th:href="@{/authors/allAuthors}">Add books</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/news/add-form}">Add News</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/authors/add-form}">Add Authors</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/category/add-form}">Add Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/books/allBooks}">Books</a>
+      </li>
+      <li>
+        <form class="search-admin-form" th:action="@{/books/search}" method="get">
+          <input class="search-admin-input" type="text" name="query" placeholder="Search...">
+          <button class="search-admin-button" type="submit">Search</button>
+        </form>
+
+      </li>
+      <li class="nav-item">
+        <form th:method="POST" th:action="@{/users/logout}">
+          <button type="submit" class="btn btn-link nav-link btn-logout">Logout</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+</body>
+</html>

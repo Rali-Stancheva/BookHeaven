@@ -3,11 +3,9 @@ package com.example.library.controllers;
 
 import com.example.library.models.DTOs.UserLoginDTO;
 import com.example.library.models.DTOs.UserRegistrationDTO;
-import com.example.library.services.EmailService;
-import com.example.library.services.EmailServiceImpl;
-import com.example.library.services.UserServiceImpl;
+import com.example.library.services.impl.UserServiceImpl;
 
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.library.util.CurrentUser;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +14,12 @@ import org.springframework.ui.Model;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
 public class AuthController {
     private final UserServiceImpl userService;
-
 
 
     @Autowired
@@ -68,6 +64,9 @@ public class AuthController {
     }
 
 
+
+
+
     @ModelAttribute("badCredentials")
     public boolean initBadCredentials() {
         return false;
@@ -95,17 +94,19 @@ public class AuthController {
             return "redirect:/users/login";
         }
 
+        CurrentUser currentUser = this.userService.getCurrentUser();
+        if (currentUser.isAdmin()) {
+            return "redirect:/admin-page";
+        }
+
         return "redirect:/";
     }
-
-
 
 
     @GetMapping("/reset-password")
     public String resetPasswordPage() {
         return "forgot-password";
     }
-
 
 
     @PostMapping("/reset-password")

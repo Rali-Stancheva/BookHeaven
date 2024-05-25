@@ -17,14 +17,13 @@
     <form  class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
           method="POST" th:action="@{/users/register/save}" th:object="${userRegistrationDTO}">
         <div class="row">
-            <div class="form-property"> <!--class="form-group col-md-8 mb-3"-->
+            <div class="form-property">
                 <label for="firstName" class="text-black font-weight-bold"></label>
                 <input id="firstName" type="text" class="form-control"
                        th:field="*{username}"
                        th:errorclass="'is-invalid alert-danger'"
                        placeholder="Username" required/>
                 <p th:if="${badCredentials} and ${#fields.hasErrors('username')}" class="error">
-                    Username is required with length between 2 and 20 symbols.
                 </p>
             </div>
         </div>
@@ -45,6 +44,7 @@
         <div class="row">
             <div class="form-property">
                 <label for="password" class="text-black font-weight-bold"></label>
+
                 <input id="password" type="password" class="form-control"
                        th:field="*{password}"
                        th:errorclass="'is-invalid alert-danger'"
@@ -53,6 +53,7 @@
                     Password is required.
                 </p>
             </div>
+
         </div>
         <div class="row">
             <div class="form-property">

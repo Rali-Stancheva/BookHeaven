@@ -1,0 +1,54 @@
+
+.book-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.book-container {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.change-area{
+    background-color: rgba(255, 0, 0, 0.81);
+    border: 1px rgba(255, 0, 0, 0.81);
+    border-radius: 50px;
+    width: 80px;
+    height: 30px;
+}
+.change-area:hover {
+    background-color: white;
+
+}
+
+.change-button{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 18px 12px;
+}
+
+.change-button:hover{
+    color: rgba(255, 0, 0, 0.81);
+}
+
+.img-container{
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+}
+
+
+.img-book {
+    width: 92%;
+    height: auto;
+    margin: 20px;
+    transition: transform 0.3s ease; /* Добавяне на преход за плавно увеличаване */
+}
+
+.img-container:hover .img-book {
+    transform: scale(1.1); /* Леко увеличаване на изображението */
+}

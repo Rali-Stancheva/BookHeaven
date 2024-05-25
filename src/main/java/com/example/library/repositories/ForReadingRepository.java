@@ -13,4 +13,6 @@ public interface ForReadingRepository extends JpaRepository<ForReading, Long> {
 
     void deleteByBookIdAndUserId(Long bookId, Long userId);
 
+    void deleteByBookId(Long bookId);
+
 }

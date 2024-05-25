@@ -12,6 +12,16 @@ public class Category {
     @Column(nullable = false, name = "name")
     private String name;
 
+
+    public Category() {
+
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+
     public Long getId() {
         return id;
     }

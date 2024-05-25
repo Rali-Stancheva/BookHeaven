@@ -6,32 +6,40 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+  <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+</div>
+<div th:unless="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+  <div th:replace="~{fragments/navigation :: navigation}"></div>
+</div>
 <main role="main" class="flex-shrink-0">
-  <h1>Search Results</h1>
-  <table>
-    <thead>
-    <tr>
-      <th>Title</th><br>
-      <th>Category</th><br>
-      <th>Description</th><br>
-      <!-- Add more columns as needed -->
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book : ${searchResults}">
-      <td th:text="${book.title}"></td>
-      <td th:text="${book.category}"></td>
-      <td th:text="${book.description}"></td>
-      <!-- Add more columns as needed -->
-    </tr>
-    </tbody>
-  </table>
+
+    <div th:each="book : ${searchResults}">
+
+      <div class="img-container" >
+        <a th:href="@{'/books/' + ${book.id}}">
+          <img class="img-book" th:src="@{${book.imageUrl}}">
+        </a>
+      </div>
+
+      <div class="book-text">
+        <h3 th:text="${book.title}"></h3>
+        <p>Author: <span th:text="${book.author.name}"></span></p>
+        <p>Category: <span th:text="${book.category.name}"></span></p>
+
+        <div  class="change-area"th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+          <a class="change-button" th:href="@{/books/{id}(id=${book.id})}"> Change </a>
+        </div>
+
+      </div>
+    </div>
+
+
+
 </main>
 
-<div class="container-fluid"></div>
-<div>
-  <footer th:replace="~{fragments/footer :: footer}"></footer>
-</div>
+<!--<div>-->
+<!--  <footer th:replace="~{fragments/footer :: footer}"></footer>-->
+<!--</div>-->
 </body>
 </html>

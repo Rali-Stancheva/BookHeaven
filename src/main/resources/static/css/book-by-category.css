@@ -1,0 +1,29 @@
+
+.book-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid #989797;
+    padding: 20px;
+}
+
+.book-text {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.img-container {
+    width: 100px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.img-book-by-category {
+    width: 90%;
+    height: auto;
+    margin: 20px;
+}
+
+.title-text{
+    margin: 20px;
+ }

@@ -17,7 +17,6 @@ public class BookDTO {
     private String imageUrl;
 
 
-
     public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String imageUrl) {
         this.id = id;
         this.title = title;
@@ -27,7 +26,6 @@ public class BookDTO {
         this.author = author;
         this.category = category;
         this.imageUrl = imageUrl;
-
     }
 
 

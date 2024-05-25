@@ -1,6 +1,5 @@
 body{
     font-family: Georgia, serif;
-
 }
 .navbar {
     height: 50px;
@@ -10,6 +9,13 @@ body{
 /*FOOTER*/
 .bg-custom-color{
     background-color: #c26236;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #ffffff;
+    padding: 14px;
+    text-align: center;
 }
 
 
@@ -17,10 +23,10 @@ body{
     height: 30px;
     display: flex;
     border: 2px #ccc;
-    border-radius: 20px;
+    border-radius: 50px;
     overflow: hidden;
-    width: 300px;
-    margin-left: 460px;
+    width: 600px;
+    margin-left: 250px;
     margin-top: 4px;
 }
 
@@ -47,16 +53,23 @@ body{
 }
 
 .search-button:hover {
-    background-color: lightgray
+    background-color: rgba(211, 211, 211, 0.94)
 }
 
 
-.nav-link {
+.nav-link{
     position: relative;
+    margin-left:27px;
 }
+
+
+.nav-item{
+    margin-left: 27px;
+}
+
 
 .navbar-brand{
-    margin-left: 511px;
+    margin-left: 45px;
 }
 
 .login-text {
@@ -163,13 +176,15 @@ body{
 
 /* -WANT-TO-READ BUTTON - book-details.html */
 .btn-readed-book,
-.btn-for-reading {
+.btn-for-reading,
+.btn-see-more-info{
     display: inline-block;
     width: 110px;
     height: 30px;
     font-size: 13px;
-    background-color: #6c757d;
+    background-color: rgba(49, 86, 108, 0.87);
     color: white;
+
     border: 1px solid;
     border-radius: 20px;
     border-color: rgba(211, 211, 211, 0.07);
@@ -180,10 +195,11 @@ body{
 }
 
 .btn-readed-book:hover,
-.btn-for-reading:hover{
-    border-color: black;
+.btn-for-reading:hover,
+.btn-see-more-info:hover{
+    border-color: rgba(49, 86, 108, 0.87);
     background-color: white;
-    color: black;
+    color: rgba(49, 86, 108, 0.87);;
 }
 
 .book-readed-or-for-reading {
@@ -193,7 +209,8 @@ body{
 
 
 .btn-readed-book a,
-.btn-for-reading a {
+.btn-for-reading a,
+.btn-see-more-info a{
     display: block;
     width: 100%;
     height: 100%;
@@ -210,12 +227,57 @@ body{
 
 }
 
-.book-info {
-    overflow-y: auto; /* Enable vertical scrolling for the book info */
-    padding-left: 100px;
-    width: 90%;
-    height: 100%; /* Fill the container height */
+
+.book-info{
+    text-align: justify;
+    width: 30%;
+    margin-left: 100px;
+    margin-right: 100px;
 }
+
+
+.admin-actions-container{
+    position: absolute;
+    right: 40px;
+    top: 100px;
+}
+
+.change-information-modal,
+.delete-information-modal{
+    display: inline-block;
+    padding: 2px;
+    margin-left: 10px
+}
+
+.rate-button, .rate-button-logged {
+    text-decoration: none;
+    color: rgba(49, 86, 108, 0.87);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+
+
+}
+
+.rate-button svg, .rate-button-logged svg {
+    fill: rgba(49, 86, 108, 0.87);
+    margin-right: 5px;
+}
+
+.rate-button:hover, .rate-button-logged:hover {
+    color: rgba(49, 86, 108, 0.87);
+}
+
+.rate-button svg:hover, .rate-button-logged svg:hover {
+    fill: rgba(49, 86, 108, 0.87);
+}
+
+.rate-button-logged{
+    background-color: white;
+    border: none;
+}
+
 
 
 /*LOGIN PAGE - auth-login.html*/

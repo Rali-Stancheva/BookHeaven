@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}">
+    <title>Add Authors</title>
+</head>
+<body>
+<div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+
+<h1>Add Authors</h1>
+<form th:action="@{'/authors/add'}" method="post">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br>
+
+    <label for="bio">Bio:</label><br>
+    <textarea id="bio" name="bio" required></textarea><br>
+
+    <label for="birthdate">Birthdate:</label><br>
+    <input type="date" id="birthdate" name="birthdate" required><br>
+
+
+    <input type="submit" value="Add">
+</form>
+
+<div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+    <p th:text="${errorMessage}">Error</p>
+</div>
+
+</body>
+</html>

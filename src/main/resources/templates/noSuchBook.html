@@ -6,7 +6,12 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+  <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+</div>
+<div th:unless="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+  <div th:replace="~{fragments/navigation :: navigation}"></div>
+</div>
 
 <div style="text-align: center;">
 <h1>No Such Book Found</h1>
@@ -14,8 +19,8 @@
 </div>
 
 <div class="container-fluid"></div>
-<div>
-  <footer th:replace="~{fragments/footer :: footer}"></footer>
-</div>
+<!--<div>-->
+<!--  <footer th:replace="~{fragments/footer :: footer}"></footer>-->
+<!--</div>-->
 </body>
 </html>

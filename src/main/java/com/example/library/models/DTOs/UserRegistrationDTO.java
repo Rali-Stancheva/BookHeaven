@@ -3,6 +3,7 @@ package com.example.library.models.DTOs;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 public class UserRegistrationDTO {
@@ -19,9 +20,11 @@ public class UserRegistrationDTO {
 
     @NotNull
     @NotBlank
-    @Length(min = 2, max = 20)
+    @Length(min = 6, max = 20)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).+$")
     private String password;
 
+    //, message = "Password must be at least 6 characters long"
     @NotNull
     @NotBlank
     private String confirmPassword;

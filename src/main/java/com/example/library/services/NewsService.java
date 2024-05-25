@@ -9,4 +9,6 @@ public interface NewsService {
     List<NewsDTO> getNews();
 
     NewsDTO convertToDTO(News news);
+
+    void addNews(News news);
 }

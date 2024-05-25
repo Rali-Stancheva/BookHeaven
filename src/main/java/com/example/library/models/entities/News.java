@@ -2,6 +2,8 @@ package com.example.library.models.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "News")
 public class News {
@@ -14,8 +16,22 @@ public class News {
     @Column(nullable = false, name = "title")
     private String title;
 
+
     @Column(nullable = false, name = "content")
     private String content;
+
+    public News() {
+
+    }
+
+    public News(String title, String content, LocalDate date) {
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
+
+    @Column(nullable = false, name = "date")
+    private LocalDate date;
 
 
     public Long getId() {
@@ -40,6 +56,14 @@ public class News {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 }

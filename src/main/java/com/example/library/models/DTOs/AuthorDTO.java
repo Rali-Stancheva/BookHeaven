@@ -1,35 +1,25 @@
-package com.example.library.models.entities;
-
-import jakarta.persistence.*;
+package com.example.library.models.DTOs;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "Authors")
-public class Author {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AuthorDTO {
+
     private Long id;
 
-    @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(name = "bio")
     private String bio;
 
-    @Column(name = "birthdate")
     private LocalDate birthdate;
 
 
-    public Author() {
-
-    }
-
-    public Author(String name, String bio, LocalDate birthdate) {
+    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate) {
+        this.id = id;
         this.name = name;
         this.bio = bio;
         this.birthdate = birthdate;
     }
+
 
     public Long getId() {
         return id;

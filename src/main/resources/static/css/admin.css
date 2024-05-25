@@ -1,0 +1,21 @@
+.admin-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    text-align: center;
+
+}
+.admin-page-container h1 {
+    margin-bottom: 5px; /* Разстояние под заглавието */
+}
+
+.admin-page-h1,
+.admin-page-p{
+    background-color: #f37a43;
+    width: 70%;
+    padding: 2px;
+    margin-top: 2px;
+    margin-bottom: 10px
+}

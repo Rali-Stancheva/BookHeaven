@@ -12,4 +12,6 @@ public interface ReadRepository extends JpaRepository<Readed, Long> {
     boolean existsByBookIdAndUserId(Long bookId, Long userId);
 
     void deleteByBookIdAndUserId(Long bookId, Long userId);
+
+    void deleteByBookId(Long bookId);
 }

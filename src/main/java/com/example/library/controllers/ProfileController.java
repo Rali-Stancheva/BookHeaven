@@ -49,6 +49,7 @@ public class ProfileController {
         userForm.setPassword("");
         userForm.setConfirmPassword("");
 
-        return "profile";
+       // return "profile";
+       return "redirect:/users/login";
     }
 }

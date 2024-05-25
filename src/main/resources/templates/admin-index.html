@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}">
+  <title>Admin</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+
+<div class="admin-page-container">
+  <div class="admin-page-h1">
+  </div>
+      <h1>Hello, <span th:text="${@currentUser.username}"></span></h1><br>
+      <p>You can add and change data!</p>
+  <div class="admin-page-p">
+  </div>
+</div>
+
+</body>
+</html>

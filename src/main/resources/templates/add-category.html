@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}">
+  <title>Add Category</title>
+</head>
+<body>
+<div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+
+<h1>Add Category</h1>
+<form th:action="@{'/category/add'}" method="post">
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name" required><br>
+
+  <input type="submit" value="Add">
+</form>
+
+<div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">
+  <p th:text="${errorMessage}">Error</p>
+</div>
+
+</body>
+</html>
