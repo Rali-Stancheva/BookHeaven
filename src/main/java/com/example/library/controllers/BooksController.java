@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/books")
 public class BooksController {
@@ -90,6 +91,15 @@ public class BooksController {
     }
 
 
+    @GetMapping("/top-rated")
+    public String getTopRatedBooks(Model model){
+        List<BookDTO> topRatedBooks = bookService.getTopRatedBooks(10);
+        model.addAttribute("topRatedBooks", topRatedBooks);
+
+        return "top-rated-books";
+    }
+
+
     @GetMapping("/read-books")
     public String getReadBooks(Model model) {
 
@@ -115,8 +125,7 @@ public class BooksController {
         List<BookDTO> searchResults = new ArrayList<>();
 
         if (query != null && !query.trim().isEmpty()) {
-            searchResults = bookService.searchBooksIgnoreCase(query);
-         //   searchResults = bookService.searchBooksByTitleOrAuthor(query); - NEW
+            searchResults = bookService.searchBooksByTitleOrAuthorOrCategory(query);
         }
 
         if (searchResults.isEmpty()) {
@@ -253,4 +262,7 @@ public class BooksController {
         bookService.deleteBookById(id);
         return "redirect:/books/allBooks";
     }
+
+
+
 }

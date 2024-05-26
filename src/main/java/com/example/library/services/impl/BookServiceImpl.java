@@ -53,73 +53,20 @@ public class BookServiceImpl implements BookService {
     }
 
 
-
-
-//    @Override - NEW
-//    public List<BookDTO> searchBooksByTitleOrAuthor(String query) {
-//        List<Book> booksByTitle = this.bookRepository.findByTitleContainingIgnoreCase(query);
-//        List<Book> booksByAuthor = this.bookRepository.findByAuthorContainingIgnoreCase(query);
-//
-//        Set<BookDTO> uniqueBooks = new HashSet<>();
-//
-//        booksByTitle.forEach(book -> uniqueBooks.add(new BookDTO(
-//                book.getId(),
-//                book.getTitle(),
-//                book.getPublication_date(),
-//                book.getDescription(),
-//                book.getRating(),
-//                book.getAuthor(),
-//                book.getCategory(),
-//                book.getImageUrl()
-//        )));
-//
-//        booksByAuthor.forEach(book -> uniqueBooks.add(new BookDTO(
-//                book.getId(),
-//                book.getTitle(),
-//                book.getPublication_date(),
-//                book.getDescription(),
-//                book.getRating(),
-//                book.getAuthor(),
-//                book.getCategory(),
-//                book.getImageUrl()
-//        )));
-//
-//        return new ArrayList<>(uniqueBooks);
-//    }
-
-//    @Override
-//    public List<BookDTO> searchBooksIgnoreCase(String query) {
-//        return this.searchBooksByTitleOrAuthor(query).stream()
-//                .filter(book -> book.getTitle().toLowerCase().contains(query.toLowerCase()))
-//                .collect(Collectors.toList());
-//    }
-
-
-
     @Override
-    public List<BookDTO> searchBooks(String query) {
-      return this.bookRepository
-              .findByTitleContainingIgnoreCase(query)
-              .stream()
-              .map(book -> new BookDTO(
-                      book.getId(),
-                      book.getTitle(),
-                      book.getPublication_date(),
-                      book.getDescription(),
-                      book.getRating(),
-                      book.getAuthor(),
-                      book.getCategory(),
-                      book.getImageUrl()
-              )).collect(Collectors.toList());
+    public List<BookDTO> searchBooksByTitleOrAuthorOrCategory(String query) {
+        List<Book> books = bookRepository.findByTitleContainingIgnoreCaseOrAuthorNameContainingIgnoreCaseOrCategoryNameContainingIgnoreCase(query, query, query);
+        return books.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
 
     @Override
     public List<BookDTO> searchBooksIgnoreCase(String query) {
-        return this.searchBooks(query).stream()
+        return this.searchBooksByTitleOrAuthorOrCategory(query).stream()
                 .filter(book -> book.getTitle().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public BookDTO getBookById(Long id) {
@@ -132,6 +79,7 @@ public class BookServiceImpl implements BookService {
             throw new NoSuchElementException("Book not found with id: " + id);
         }
     }
+
 
     @Override
     public BookDTO convertToDto(Book book){
@@ -327,6 +275,23 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.deleteById(id);
     }
+
+
+    @Override
+    public List<BookDTO> getTopRatedBooks(int limit) {
+        List<Book> topRatedBooks = bookRepository.findTop10ByOrderByRatingDesc();
+
+        // Преобразуваме списъка с книги към списък с DTO обекти (ако използвате DTO-та)
+        List<BookDTO> topRatedBookDTOs = new ArrayList<>();
+
+        for (Book book : topRatedBooks) {
+            BookDTO bookDTO = convertToDto(book); // Примерен метод за конвертиране на обектите Book към DTO обекти
+            topRatedBookDTOs.add(bookDTO);
+        }
+
+        return topRatedBookDTOs;
+    }
+
 
 
     @Override

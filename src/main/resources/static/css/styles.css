@@ -26,7 +26,8 @@ body{
     border-radius: 50px;
     overflow: hidden;
     width: 600px;
-    margin-left: 250px;
+    /*margin-left: 250px;*/
+    margin-left: 0px;
     margin-top: 4px;
 }
 
@@ -42,7 +43,7 @@ body{
     background-color: white;
     color: grey;
     border: none;
-    padding: 0px 10px;
+    padding: 2px 10px;
     border-radius: 2px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -53,13 +54,27 @@ body{
 }
 
 .search-button:hover {
-    background-color: rgba(211, 211, 211, 0.94)
+   color: rgba(49, 86, 108, 0.87);
+    font-size: 110%
 }
 
+.search-dropdown{
+    background-color: white;
+    color: grey;
+    margin-top: 0px;
+    border-radius: 50px;
+
+}
+
+#dropdown-item-search{
+    margin-top: 40px;
+}
 
 .nav-link{
     position: relative;
     margin-left:27px;
+    margin-top: -5px;
+
 }
 
 
@@ -69,7 +84,8 @@ body{
 
 
 .navbar-brand{
-    margin-left: 45px;
+    margin-left: 63px;
+    margin-right: 223px;
 }
 
 .login-text {
@@ -256,8 +272,6 @@ body{
     align-items: center;
     cursor: pointer;
     font-size: 18px;
-
-
 }
 
 .rate-button svg, .rate-button-logged svg {
@@ -265,13 +279,16 @@ body{
     margin-right: 5px;
 }
 
+
 .rate-button:hover, .rate-button-logged:hover {
     color: rgba(49, 86, 108, 0.87);
 }
 
+
 .rate-button svg:hover, .rate-button-logged svg:hover {
     fill: rgba(49, 86, 108, 0.87);
 }
+
 
 .rate-button-logged{
     background-color: white;

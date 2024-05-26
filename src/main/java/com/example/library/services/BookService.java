@@ -12,9 +12,9 @@ import java.util.List;
 public interface BookService {
     List<BookDTO> getBooks();
 
-    List<BookDTO> searchBooks(String query);
-    //List<BookDTO> searchBooksByTitleOrAuthor(String query); - ORIGINAL
+   // List<BookDTO> searchBooks(String query);
 
+    List<BookDTO> searchBooksByTitleOrAuthorOrCategory(String query);
 
     List<BookDTO> searchBooksIgnoreCase(String query);
 
@@ -44,7 +44,6 @@ public interface BookService {
 
     double getAverageRatingForMovie(Long bookId);
 
-
     Book convertDtoToBook(BookDTO bookDTO);
 
     void updateBook(Long id, String newTitle, Double newRating, String newDescription, Long newAuthorId);
@@ -52,4 +51,8 @@ public interface BookService {
     void addBook(String title, LocalDate publicationDate, String description, Double rating, Long authorId, Long categoryId, String imageUrl);
 
     void deleteBookById(Long id);
+
+    List<BookDTO> getTopRatedBooks(int limit);
+
+
 }

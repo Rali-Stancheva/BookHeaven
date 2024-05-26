@@ -16,9 +16,19 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
         <ul class="navbar-nav text-white mr-auto">
-            <li>
+            <li class="search-dropdown">
                 <form class="search-form" th:action="@{/books/search}" method="get" >
-                    <input class="search-input" type="text" name="query" placeholder="Search books...">
+                    <a class="nav-link dropdown-toggle text-black" href="#" id="navbarDropdownSearch" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Browse
+                    </a>
+                    <div id="dropdown-item-search" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item text-black" th:href="@{/books/top-rated}">Top 10</a>
+                        <a class="dropdown-item text-black" th:href="@{'/books/by-category/children'}">Children's</a>
+                        <a class="dropdown-item text-black" th:href="@{'/books/by-category/business'}">Business</a>
+                        <a class="dropdown-item text-black" th:href="@{'/books/by-category/travel'}">Travel</a>
+                        <a class="dropdown-item text-black" th:href="@{'/books/by-category/comics'}">Comics</a>
+                    </div>
+                    <input class="search-input" type="text" name="query" placeholder="Search for books, authors or categories">
                     <button class="search-button" type="submit">Search</button>
                 </form>
             </li>
