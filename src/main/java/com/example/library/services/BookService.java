@@ -40,7 +40,7 @@ public interface BookService {
 
     void removeRating(Long bookId, User user);
 
-    int getUserRatingForMovie(Long bookId, Long userId);
+    int getUserRatingForBook(Long bookId, Long userId);
 
     double getAverageRatingForMovie(Long bookId);
 
@@ -53,6 +53,7 @@ public interface BookService {
     void deleteBookById(Long id);
 
     List<BookDTO> getTopRatedBooks(int limit);
+
 
 
 }

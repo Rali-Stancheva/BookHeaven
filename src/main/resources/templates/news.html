@@ -2,29 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/head :: head}">
-  <title>News</title>
+    <title>News</title>
 </head>
 <body>
 
 <div th:replace="~{fragments/navigation :: navigation}"></div>
-<main role="main" class="flex-shrink-0">
-  <div class="container mt-5">
-    <div class="jumbotron">
-      <h1 class="display-4">News</h1>
+<div class="news">
+    <div class="news-container">
 
-      <div th:each="n : ${allNews}">
-        <h3 th:text="${n.id}"></h3>
-        <p th:text="${n.title}"></p>
-        <p th:text="${n.content}"></p>
-      </div>
+        <div class="news-card" th:each="n : ${allNews}">
 
+            <img th:src="@{${n.imageUrl}}">
+            <div class="card-body">
+                <div class="card-text">
+                    <h5 th:text="${n.title}"></h5>
+                    <p th:text="${n.date}"></p>
+                </div>
+                <a th:href="@{'/news/' + ${n.id}}" class="news-more-btn">More...</a>
+
+            </div>
+        </div>
     </div>
-  </div>
-</main>
+</div>
+
 
 <div class="container-fluid"></div>
 <div>
-  <footer th:replace="~{fragments/footer :: footer}"></footer>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
 </body>
 </html>

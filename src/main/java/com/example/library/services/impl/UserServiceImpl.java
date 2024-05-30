@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     private final CurrentUser currentUser;
     private EmailService emailService;
     private Random random;
-
     private boolean forgotPasswordRequested = false;
     private String resetCode;
 
@@ -82,6 +81,7 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Потребителят с такъв email не съществува.");
         }
     }
+
 
     @Override
     public Boolean loginUser(UserLoginDTO userLoginDTO) {
@@ -162,4 +162,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

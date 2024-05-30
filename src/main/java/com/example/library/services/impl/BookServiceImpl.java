@@ -115,6 +115,7 @@ public class BookServiceImpl implements BookService {
         readRepository.save(readed);
     }
 
+
     @Override
     public void addToForReadingList(Long bookId, Long userId) {
         Book book = bookRepository.findById(bookId)
@@ -223,7 +224,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public int getUserRatingForMovie(Long bookId, Long userId) {
+    public int getUserRatingForBook(Long bookId, Long userId) {
         RatingFromUser rating = ratingFromUserRepository.findByBookIdAndUserId(bookId, userId);
         return rating != null ? rating.getRating() : 0;
     }
@@ -331,13 +332,6 @@ public class BookServiceImpl implements BookService {
             bookRepository.save(book);
         }
     }
-
-
-
-
-
-
-
 
 
 }

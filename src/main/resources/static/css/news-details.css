@@ -1,0 +1,127 @@
+.news-details-container {
+    max-width: 800px; /* Настройте максималната ширина според вашите изисквания */
+    margin: 0 auto; /* Центрира контейнера хоризонтално */
+    padding: 60px; /* Добавя вътрешен падинг за по-добър изглед */
+    text-align: justify; /* Подравнява текста в контейнера двустранно */
+    margin-left: 200px; /* Леко подравнява контейнера в ляво */
+}
+
+.news-details-container p {
+    display: inline-block; /* Позволява на text-align да работи правилно */
+}
+
+.news-details-title{
+    text-align: center;
+    padding-bottom: 34px;
+    padding-top: 35px;
+}
+
+.news-details-img{
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding-bottom: 90px;
+}
+
+
+.news-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px;
+    text-align: justify;
+    margin-left: 215px;
+}
+
+.news-details-container p {
+    display: inline-block;
+}
+
+.news-details-title {
+    text-align: center;
+    padding-bottom: 34px;
+    padding-top: 35px;
+}
+
+.news-details-img {
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding-bottom: 20px; /* Намалихме padding, за да съответства на бутона */
+}
+
+.like-btn-container {
+    text-align: center; /* Центрира контейнера за бутона */
+    margin-bottom: 20px; /* Добавя разстояние под бутона */
+}
+
+.like-button {
+    margin: 10px;
+    text-decoration: none;
+    background-color: #3434be;
+    color: white;
+    font-size: 15px;
+    padding: 6px 25px;
+    border-radius: 5px;
+}
+
+.like-button:disabled {
+    background-color: #dddddd;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+.like-icon {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/*--------------------------------------------------------------*/
+/*.most-liked{*/
+/*    border: 1px solid black;*/
+/*    width: 400px;*/
+/*    height: 100px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+
+/*    margin-left: 1119px;*/
+/*    position: absolute; !* Задава позицията на елемента *!*/
+/*    top: 275px; !* Позиционира горната част на контейнера върху горния край на родителския елемент *!*/
+/*    right: 0;*/
+/*}*/
+
+/*.most-liked-img{*/
+/*    border: 1px solid white;*/
+/*    border-radius: 50%;*/
+/*    width: 70px;*/
+/*    height: 70px;*/
+/*    margin-right: 20px;*/
+/*    margin-left: 20px*/
+/*}*/
+
+.most-liked-container {
+    position: absolute;
+    top: 275px;
+    right: 0;
+    width: 400px;
+    margin-left: 1119px;
+}
+
+.most-liked {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.most-liked-img {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}

@@ -69,7 +69,7 @@ public class BooksController {
         model.addAttribute("authors", authors);
 
         CurrentUser currentUser = userService.getCurrentUser();
-        int userRating = bookService.getUserRatingForMovie(id, currentUser.getId());
+        int userRating = bookService.getUserRatingForBook(id, currentUser.getId());
         model.addAttribute("userRating", userRating);
 
         double averageRating = bookService.getAverageRatingForMovie(id);
@@ -246,7 +246,7 @@ public class BooksController {
 
 
     @PostMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
+    public String updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
         Long authorId = null;
         if (bookDTO.getAuthor() != null) {
             authorId = bookDTO.getAuthor().getId();

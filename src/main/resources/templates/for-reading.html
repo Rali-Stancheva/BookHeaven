@@ -43,7 +43,7 @@
         <div class="remove-information-modal">
           <!-- Button trigger modal -->
           <button type="button" class="remove-book-btn" data-toggle="modal" th:data-target="'#removeModalCenter-' + ${book.id}">
-            Remove
+            Move to Read
           </button>
 
           <!-- Modal - Remove -->
@@ -52,17 +52,17 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="removeModalLongTitle">Remove the book from the list.</h5>
+                  <h5 class="modal-title" id="removeModalLongTitle">Move the book to the Read list.</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form id="removeForm" th:action="@{'/books/remove-for-reading/' + ${book.id} + '/' + ${@currentUser.id}}" method="post">
-                    Are you sure you want to remove this book from this list?
+                  <form id="removeForm" th:action="@{'/books/move-to-readed/' + ${book.id} + '/' + ${@currentUser.id}}" method="post">
+                    Are you sure you want to move this book to the Read list?
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-danger">Remove</button>
+                      <button type="submit" class="btn btn-danger">Move to Read</button>
                     </div>
                   </form>
                 </div>

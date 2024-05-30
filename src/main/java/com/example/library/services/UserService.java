@@ -2,8 +2,11 @@ package com.example.library.services;
 
 import com.example.library.models.DTOs.UserLoginDTO;
 import com.example.library.models.DTOs.UserRegistrationDTO;
+import com.example.library.models.entities.User;
 import com.example.library.util.CurrentUser;
 import com.example.library.util.UserForm;
+
+import java.util.Optional;
 
 public interface UserService {
     Boolean registerUser(UserRegistrationDTO userRegistrationDTO);
@@ -23,4 +26,6 @@ public interface UserService {
     void requestPasswordReset();
 
     void updatePassword(String email, String newPassword);
+
+    Optional<User> findByUsername(String username);
 }

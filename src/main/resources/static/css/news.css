@@ -1,0 +1,91 @@
+/* Colors ---------------------------------------------------------------------------------------------------------------------------*/
+:root {
+    --color-primary-white: rgb(240, 240, 240);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.news-card-container {
+    width: 12rem; /* Reduced width */
+    height: 18rem; /* Reduced height */
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    color: var(--color-primary-white);
+    box-shadow: 0 10px 30px 5px rgba(0, 0, 0, 0.2);
+
+    margin-right: 100px; /* Add margin between news cards */
+}
+
+.news-card-container img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.9;
+    transition: opacity .2s ease-out;
+}
+
+.news-card-container h4 {
+    position: absolute;
+    inset: auto auto 20px 20px; /* Adjusted inset for smaller size */
+    margin: 0;
+    transition: inset .3s .3s ease-out;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.news-card-container p,
+.news-card-container a {
+    position: absolute;
+    opacity: 0;
+    max-width: 80%;
+    transition: opacity .3s ease-out;
+}
+
+.news-card-container p {
+    inset: auto auto 60px 20px; /* Adjusted inset for smaller size */
+}
+
+.news-card-container a {
+    inset: auto auto 30px 20px; /* Adjusted inset for smaller size */
+    color: inherit;
+    text-decoration: none;
+}
+
+.news-card-container:hover h4 {
+    inset: auto auto 180px 20px; /* Adjusted inset for smaller size */
+    transition: inset .3s ease-out;
+}
+
+.news-card-container:hover p,
+.news-card-container:hover a {
+    opacity: 1;
+    transition: opacity .5s .1s ease-in;
+}
+
+.news-card-container:hover img {
+    transition: opacity .3s ease-in;
+    opacity: 1;
+}
+
+.material-symbols-outlined {
+    vertical-align: middle;
+}
+
+.latest-title{
+    padding-left: 100px;
+    font-weight: bold;
+    padding-top: 70px;
+}
