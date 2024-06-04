@@ -1,142 +1,39 @@
-/*ul {*/
-/*    list-style-type: none;*/
-/*    padding: 0;*/
-/*}*/
-
-/*ul li {*/
-/*    margin-bottom: 10px; !* добавя малко пространство между елементите от списъка *!*/
-/*}*/
-
-/*.book-list {*/
-/*    list-style: none;*/
-/*    padding: 0;*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    justify-content: center;*/
-
-/*}*/
-
-/*.book-list li {*/
-/*    width: 300px;*/
-/*    margin: 10px;*/
-/*    overflow: hidden;*/
-/*    position: relative;*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*}*/
-
-/*.book-list li img {*/
-/*    width: 150px;*/
-/*    height: 200px;*/
-/*    object-fit: cover;*/
-/*    margin-right: 10px;*/
-/*}*/
-
-/*.book-list li span {*/
-/*    display: block;*/
-/*    padding: 10px;*/
-/*    font-size: 18px;*/
-/*    font-weight: bold;*/
-/*    text-align: center;*/
-/*    flex: 1;*/
-/*}*/
-
-
-/*.remove-information-modal{*/
-/*    position: absolute;*/
-/*    top: 10px;*/
-/*    right: 10px;*/
-/*}*/
-
-
-
-
-
-
-
-
-
-
-
-/*.book-item {*/
-/*    text-align: center; !* Центриране на текста *!*/
-/*    margin-bottom: 40px; !* Пространство между книгите *!*/
-/*}*/
-
-/*.book-item img {*/
-/*    width: 200px; !* Ширина на снимката *!*/
-/*    height: 300px; !* Автоматична височина, за да запазите съотношението на страни *!*/
-/*    margin-bottom: 10px; !* Пространство под снимката *!*/
-/*}*/
-
-/*.book-title {*/
-/*    display: block; !* За да се избегне инлайн елемент *!*/
-/*    font-weight: bold; !* Удебелен текст *!*/
-/*}*/
-
-
-/*.remove-book-btn{*/
-/*    background-color: #f01414f7;*/
-/*    border: 1px;*/
-/*    border-radius: 5px;*/
-/*    color: white;*/
-/*    height: 34px;*/
-/*    width: 70px;*/
-/*    margin-top: 16px;*/
-/*    margin-left: 3px;*/
-/*}*/
-
-/*.remove-book-btn:hover{*/
-/*    background-color: white;*/
-/*    color: #f01414f7;*/
-/*    border: 1px solid #f01414f7;*/
-/*}*/
-
-/*.close{*/
-/*    border: none;*/
-/*    background-color: white;*/
-/*}*/
-
-
-
-
-
 .book-item {
-    text-align: center; /* Центриране на текста */
-    margin-bottom: 40px; /* Пространство между книгите */
+    text-align: center;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 350px; /* Фиксирана височина на всеки елемент */
+    height: 350px;
 }
 
 .book-item img {
-    width: 150px; /* Ширина на снимката */
-    height: 200px; /* Фиксирана височина */
-    margin-bottom: 10px; /* Пространство под снимката */
+    width: 150px;
+    height: 200px;
+    margin-bottom: 10px;
 }
 
 .book-title {
-    display: block; /* За да се избегне инлайн елемент */
-    font-weight: bold; /* Удебелен текст */
+    display: block;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
 .remove-book-btn {
-    background-color: #f01414f7;
+    background-color: #178854;
     border: 1px;
-    border-radius: 5px;
+    border-radius: 6px;
     color: white;
-    height: 34px;
-    width: 70px;
+    height: 38px;
+    width: 115px;
     margin-top: 16px;
 }
 
 .remove-book-btn:hover {
     background-color: white;
-    color: #f01414f7;
-    border: 1px solid #f01414f7;
+    color:#178854;
+    border: 1px solid #178854;
 }
 
 .close {

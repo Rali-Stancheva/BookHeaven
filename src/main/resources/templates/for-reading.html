@@ -1,3 +1,61 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+
+<!--<head th:replace="~{fragments/head :: head}">-->
+<!--  <title>Reading List</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="~{fragments/navigation :: navigation}"></div>-->
+<!--<h1>For Reading List</h1>-->
+
+<!--<div class="container">-->
+<!--  <div th:if="${forReading.isEmpty()}" class="alert alert-info" role="alert">-->
+<!--    <p>No books added to the reading list yet.</p>-->
+<!--  </div>-->
+
+<!--  <div class="row">-->
+<!--    <div class="col-md-4" th:each="book : ${forReading}">-->
+<!--      <div class="book-item">-->
+<!--        <img th:src="@{${book.imageUrl}}" class="card-img-top" alt="Book Image">-->
+<!--        <span th:text="${book.title}" class="book-title">Book Title</span>-->
+
+<!--        <div class="remove-information-modal">-->
+<!--          &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--          <button type="button" class="remove-book-btn" data-toggle="modal" th:data-target="'#removeModalCenter-' + ${book.id}">-->
+<!--            Move to Read-->
+<!--          </button>-->
+
+<!--          &lt;!&ndash; Modal - Remove &ndash;&gt;-->
+<!--          <div class="modal fade" th:id="'removeModalCenter-' + ${book.id}" tabindex="-1" role="dialog"-->
+<!--               aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--            <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--              <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                  <h5 class="modal-title" id="removeModalLongTitle">Move the book to the Read list.</h5>-->
+<!--                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                  </button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                  <form id="removeForm" th:action="@{'/books/move-to-read/' + ${book.id}}" method="post">-->
+<!--                    Are you sure you want to move this book to the Read list?-->
+<!--                    <div class="modal-footer">-->
+<!--                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                      <button type="submit" class="btn btn-danger">Move to Read</button>-->
+<!--                    </div>-->
+<!--                  </form>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -7,27 +65,6 @@
 <body>
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 <h1>For Reading List</h1>
-
-<!--<div class="container">-->
-<!--  -->
-<!--  <div th:if="${forReading.isEmpty()}" class="alert alert-info" role="alert">-->
-<!--    <p>No books added to the list yet.</p>-->
-<!--  </div>-->
-
-<!--  <div class="book-list">-->
-<!--    <ul>-->
-<!--      <li th:each="book : ${forReading}">-->
-<!--        <span th:text="${book.title}">Book Title</span>-->
-<!--        <form th:action="@{'/books/remove-for-reading/' + ${book.id} + '/' + ${@currentUser.id}}" method="post">-->
-<!--          <button type="submit">Remove</button>-->
-<!--        </form>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-
 
 <div class="container">
   <div th:if="${forReading.isEmpty()}" class="alert alert-info" role="alert">
@@ -58,11 +95,11 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form id="removeForm" th:action="@{'/books/move-to-readed/' + ${book.id} + '/' + ${@currentUser.id}}" method="post">
+                  <form id="removeForm" th:action="@{'/books/move-to-read/' + ${book.id}}" method="post">
                     Are you sure you want to move this book to the Read list?
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-danger">Move to Read</button>
+                      <button type="submit" class="btn btn-success">Move to Read</button>
                     </div>
                   </form>
                 </div>

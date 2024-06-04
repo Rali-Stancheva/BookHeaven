@@ -171,7 +171,12 @@
 
         <div class="book-info">
             <h1 th:text="${book.title}"></h1>
-            <p th:text="${book.author.getName()}"></p>
+            <p>Author:
+                <a th:href="@{'/authors/' + ${book.getAuthor().getId()}}">
+                    <span th:text="${book.author.getName()}"></span>
+                </a>
+            </p>
+
             <p>Rating: <span th:text="${book.rating}"></span></p>
             <p th:text="${book.description}"></p>
             <div class="comments">

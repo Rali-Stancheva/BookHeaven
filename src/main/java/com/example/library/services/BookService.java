@@ -54,6 +54,6 @@ public interface BookService {
 
     List<BookDTO> getTopRatedBooks(int limit);
 
-
+    void moveToRead(Long bookId, Long userId);
 
 }

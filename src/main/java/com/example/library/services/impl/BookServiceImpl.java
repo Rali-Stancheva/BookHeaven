@@ -69,7 +69,7 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public BookDTO getBookById(Long id) {
+    public BookDTO getBookById(Long id){
         Optional<Book>bookOptional = bookRepository.findById(id);
 
         if (bookOptional.isPresent()) {
@@ -293,6 +293,25 @@ public class BookServiceImpl implements BookService {
         return topRatedBookDTOs;
     }
 
+
+    @Override
+    public void moveToRead(Long bookId, Long userId) {
+
+        // Намерете книгата в списъка "за четене"
+        ForReading forReading = forReadingRepository.findByBookIdAndUserId(bookId, userId)
+                .orElseThrow(() -> new IllegalArgumentException("Book not found in 'for reading' list"));
+
+        // Създайте нов запис в списъка "прочетени"
+        Readed readed = new Readed();
+        readed.setBook(forReading.getBook());
+        readed.setUser(forReading.getUser());
+
+        // Запазете книгата в списъка "прочетени"
+        readRepository.save(readed);
+
+        // Изтрийте книгата от списъка "за четене"
+        forReadingRepository.delete(forReading);
+    }
 
 
     @Override

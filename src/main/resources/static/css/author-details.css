@@ -1,0 +1,53 @@
+.author-container {
+    max-width: 800px;
+    margin: 0px auto;
+    padding: 30px;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 125px;
+}
+
+.author-img {
+    height: auto;
+    width: 150px;
+    margin-bottom: 20px;
+}
+
+.author-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+.random-books-by-author-container {
+    position: absolute;
+    top: 180px;
+    right: 0;
+    width: 400px;
+    margin-left: 1119px;
+}
+
+.random-books-by-author-container h5 {
+    margin-left: 115px;
+    margin-bottom: 20px;
+}
+
+.random-books{
+    border: 1px solid #ea6767;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.random-books-img {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}

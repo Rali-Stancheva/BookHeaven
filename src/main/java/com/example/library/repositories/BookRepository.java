@@ -20,6 +20,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findByCategory(Category category);
 
 
-
+    List<Book> findByAuthorId(Long authorId);
 
 }

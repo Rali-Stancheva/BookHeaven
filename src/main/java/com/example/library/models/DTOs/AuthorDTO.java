@@ -12,12 +12,14 @@ public class AuthorDTO {
 
     private LocalDate birthdate;
 
+    private String imageUrl;
 
-    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate) {
+    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate,String imageUrl) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.birthdate = birthdate;
+        this.imageUrl = imageUrl;
     }
 
 
@@ -51,5 +53,13 @@ public class AuthorDTO {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

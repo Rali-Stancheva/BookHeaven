@@ -20,15 +20,19 @@ public class Author {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
+    @Column(name = "imageUrl")
+    private String imageUrl;
+
 
     public Author() {
 
     }
 
-    public Author(String name, String bio, LocalDate birthdate) {
+    public Author(String name, String bio, LocalDate birthdate,String imageUrl) {
         this.name = name;
         this.bio = bio;
         this.birthdate = birthdate;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -61,5 +65,13 @@ public class Author {
 
     public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

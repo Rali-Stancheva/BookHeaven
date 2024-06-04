@@ -60,6 +60,7 @@ public class BooksController {
     }
 
 
+
     @GetMapping("/{id}")
     public String getBookDetails(Model model, @PathVariable Long id) {
         BookDTO book = bookService.getBookById(id);
@@ -264,5 +265,17 @@ public class BooksController {
     }
 
 
+    @PostMapping("/move-to-read/{bookId}")
+    public String moveToReadList(@PathVariable Long bookId, RedirectAttributes redirectAttributes) {
+        Long userId = currentUser.getId(); // Получете ID на текущия потребител
 
+        try {
+            bookService.moveToRead(bookId, userId);
+            redirectAttributes.addFlashAttribute("successMessage", "The book was moved to read list.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error moving the book.");
+        }
+
+        return "redirect:/books/read-books";
+    }
 }
