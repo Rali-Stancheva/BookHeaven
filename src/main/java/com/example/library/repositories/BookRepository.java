@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAll();
@@ -18,6 +19,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findTop10ByOrderByRatingDesc();
 
     List<Book> findByCategory(Category category);
+
+    Optional<Book> findByTitle(String bookTitle);
 
 
     List<Book> findByAuthorId(Long authorId);

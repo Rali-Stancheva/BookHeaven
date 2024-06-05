@@ -27,7 +27,9 @@
   <label for="author">Author: </label>
   <select id="author" name="authorId" class="form-control" required>
     <option value="" disabled selected hidden>Please select an author.</option>
-    <option th:each="author : ${allAuthors}" th:value="${author.getId()}" th:text="${author.getName()}"></option>
+    <option th:each="author : ${allAuthors}" th:value="${author.id}" th:text="${author.getName()}"></option>
+
+
   </select><br>
 
 

@@ -20,4 +20,6 @@ public interface AuthorService {
     AuthorDTO convertToDto(Author author);
 
     List<Book> getRandomBooksByAuthor(Long authorId);
+
+    List<AuthorDTO> getAuthors();
 }

@@ -39,7 +39,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item text-black" th:href="@{/books/allBooks}">Books</a>
-                    <a class="dropdown-item text-black" th:href="@{/authors/allAuthors}">Authors</a>
+                    <a class="dropdown-item text-black" th:href="@{/authors/allAuthorsInfo}">Authors</a>
                     <a class="dropdown-item text-black" th:href="@{/news/allNews}">News</a>
 
                 </div>
@@ -53,6 +53,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item text-black" th:href="@{/books/read-books}">Read</a>
                             <a class="dropdown-item text-black" th:href="@{/books/for-reading}">For Reading</a>
+                            <a class="dropdown-item" th:href="@{/lists/create-page}">Create List with books</a>
+                            <a class="dropdown-item" th:href="@{/lists/user-list}">Your List</a>
 <!--                            <a class="dropdown-item text-black" th:href="@{/books/allBooks}">Your Ratings</a>-->
                             <a class="dropdown-item text-black" th:href="@{/profile}">Account Settings</a>
                             <form th:method="POST" th:action="@{/users/logout}">

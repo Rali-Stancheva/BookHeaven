@@ -282,11 +282,11 @@ public class BookServiceImpl implements BookService {
     public List<BookDTO> getTopRatedBooks(int limit) {
         List<Book> topRatedBooks = bookRepository.findTop10ByOrderByRatingDesc();
 
-        // Преобразуваме списъка с книги към списък с DTO обекти (ако използвате DTO-та)
+
         List<BookDTO> topRatedBookDTOs = new ArrayList<>();
 
         for (Book book : topRatedBooks) {
-            BookDTO bookDTO = convertToDto(book); // Примерен метод за конвертиране на обектите Book към DTO обекти
+            BookDTO bookDTO = convertToDto(book);
             topRatedBookDTOs.add(bookDTO);
         }
 
@@ -297,19 +297,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public void moveToRead(Long bookId, Long userId) {
 
-        // Намерете книгата в списъка "за четене"
         ForReading forReading = forReadingRepository.findByBookIdAndUserId(bookId, userId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found in 'for reading' list"));
 
-        // Създайте нов запис в списъка "прочетени"
+
         Readed readed = new Readed();
         readed.setBook(forReading.getBook());
         readed.setUser(forReading.getUser());
 
-        // Запазете книгата в списъка "прочетени"
         readRepository.save(readed);
-
-        // Изтрийте книгата от списъка "за четене"
         forReadingRepository.delete(forReading);
     }
 

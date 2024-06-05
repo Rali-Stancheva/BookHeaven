@@ -2,6 +2,9 @@ package com.example.library.models.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Lists")
 public class Lists {
@@ -13,16 +16,20 @@ public class Lists {
     @Column(nullable = false, name = "name")
     private String name;
 
-    @Column(nullable = false, name = "description")
-    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
-    private Book book;
+
+    @ManyToMany
+    @JoinTable(
+            name = "books-lists",
+            joinColumns = @JoinColumn(name = "lists_id"),
+            inverseJoinColumns = @JoinColumn(name = "books_id")
+    )
+    private List<Book> books = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -40,14 +47,6 @@ public class Lists {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public User getUser() {
         return user;
     }
@@ -56,11 +55,11 @@ public class Lists {
         this.user = user;
     }
 
-    public Book getBook() {
-        return book;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

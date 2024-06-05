@@ -68,7 +68,16 @@ public class AuthorServiceImpl implements AuthorService {
     public List<Book> getRandomBooksByAuthor(Long authorId) {
         List<Book> books = bookRepository.findByAuthorId(authorId);
 
-        Collections.shuffle(books); // Разбъркваме списъка с книги
+        Collections.shuffle(books); // Разбъркване списъка с книги
         return books.stream().limit(3).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AuthorDTO> getAuthors() {
+        return this.authorRepository
+                .findAll()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 }

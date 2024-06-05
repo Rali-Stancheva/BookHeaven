@@ -27,13 +27,6 @@ public class AuthorController {
         this.categoryService = categoryService;
     }
 
-//
-//    @GetMapping("/allAuthors")
-//    public String getAuthors(Model model) {
-//        List<Author> allAuthors = authorService.findAll();
-//        model.addAttribute("allAuthors", allAuthors);
-//        return "add-books";
-//    }
 
 
     @GetMapping("/allAuthors")
@@ -45,6 +38,15 @@ public class AuthorController {
         model.addAttribute("allCategories", allCategories);
 
         return "add-books";
+    }
+
+    @GetMapping("/allAuthorsInfo")
+    public String getAuthorsInfo(Model model) {
+        List<AuthorDTO> allAuthorsInfo = authorService.getAuthors();
+        model.addAttribute("allAuthorsInfo", allAuthorsInfo);
+
+
+        return "authors";
     }
 
 
