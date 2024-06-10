@@ -21,10 +21,8 @@ public class UserRegistrationDTO {
     @NotNull
     @NotBlank
     @Length(min = 6, max = 20)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).+$")
     private String password;
 
-    //, message = "Password must be at least 6 characters long"
     @NotNull
     @NotBlank
     private String confirmPassword;

@@ -9,8 +9,95 @@
 <div th:replace="~{fragments/navigation :: navigation}"></div>
 
 <div class="news-details-container">
+    <div class="admin-actions-container" th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+
+        <div class="change-information-modal">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
+                Change
+            </button>
+
+
+            <!-- Modal Change Info-->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Change news information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="editForm" th:action="@{'/news/edit/' + ${news.id}}"  method="post" enctype="multipart/form-data">
+                                <label for="title">Title: </label>
+                                <input type="text" id="title" name="title" th:value="${news.title}"><br>
+
+                                <label for="content">Content: </label>
+                                <textarea id="content" name="content"
+                                          th:text="${news.content}"></textarea><br>
+
+                                <label for="date">Date: </label>
+                                <input type="date" id="date" name="date" th:value="${news.date}"><br>
+
+                                <label for="shortDescription">Short description: </label>
+                                <input type="text" id="shortDescription" name="shortDescription" th:value="${news.shortDescription}"><br>
+
+
+                                <label for="image">Image:</label>
+                                <input type="file" id="image" name="image"><br>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-success">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--        <div class="delete-information-modal">-->
+<!--            &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCenter">-->
+<!--                Delete-->
+<!--            </button>-->
+
+
+<!--            &lt;!&ndash; Modal - Delete &ndash;&gt;-->
+<!--            <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog"-->
+<!--                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
+<!--                <div class="modal-dialog modal-dialog-centered" role="document">-->
+<!--                    <div class="modal-content">-->
+<!--                        <div class="modal-header">-->
+<!--                            <h5 class="modal-title" id="deleteModalLongTitle">Delete book</h5>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                        <div class="modal-body">-->
+<!--                            <form id="deleteForm" th:action="@{'/books/delete/' + ${book.id}}" method="post">-->
+<!--                                Are you sure you want to delete this book?-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
+<!--                                    </button>-->
+<!--                                    <button type="submit" class="btn btn-danger">Delete</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+
+
     <h2 class="news-details-title" th:text="${news.title}"></h2>
-    <img class="news-details-img" th:src="@{${news.imageUrl}}">
+
+    <img th:src="@{'/uploads/' + ${news.image}}" alt="Image">
 
     <div class="like-btn-container">
         <form th:action="@{/likes/like}" method="post">

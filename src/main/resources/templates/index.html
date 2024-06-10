@@ -114,7 +114,8 @@
     <main>
         <div class="row" th:each="n : ${lastPublishedNews}">
             <div class="news-card-container">
-                <img th:src="@{${n.imageUrl}}" alt="News Image">
+                <img th:src="@{${n.image}}" alt="News Image">
+
                 <div class="card-content">
                     <h4 th:text="${n.title}"></h4>
                     <p th:text="${n.shortDescription}"></p>

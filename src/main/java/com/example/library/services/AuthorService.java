@@ -5,6 +5,7 @@ import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Book;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AuthorService {
@@ -22,4 +23,8 @@ public interface AuthorService {
     List<Book> getRandomBooksByAuthor(Long authorId);
 
     List<AuthorDTO> getAuthors();
+
+    void updateAuthor(Long id, String newName, String newBio, LocalDate newBirthdate);
+
+    void deleteAuthorById(Long id);
 }

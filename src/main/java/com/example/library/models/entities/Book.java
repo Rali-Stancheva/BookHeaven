@@ -36,12 +36,21 @@ public class Book {
     @Column(name = "image_URL")
     private String imageUrl;
 
+    @Column
+    private String language;
+
+    @Column
+    private String publisher;
+
+    @Column
+    private Integer ISBN;
+
 
     public Book() {
 
     }
 
-    public Book(String title, LocalDate publication_date, String description, Double rating, Author author, Category category, String imageUrl) {
+    public Book(String title, LocalDate publication_date, String description, Double rating, Author author, Category category, String imageUrl,String language,String publisher,Integer ISBN) {
         this.title = title;
         this.publication_date = publication_date;
         this.description = description;
@@ -49,6 +58,10 @@ public class Book {
         this.author = author;
         this.category = category;
         this.imageUrl = imageUrl;
+        this.language = language;
+        this.publisher = publisher;
+        this.ISBN = ISBN;
+
     }
 
     public Long getId() {
@@ -115,4 +128,27 @@ public class Book {
         this.imageUrl = imageUrl;
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Integer getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(Integer ISBN) {
+        this.ISBN = ISBN;
+    }
 }

@@ -91,7 +91,10 @@ public class BookServiceImpl implements BookService {
                 book.getRating(),
                 book.getAuthor(),
                 book.getCategory(),
-                book.getImageUrl());
+                book.getImageUrl(),
+                book.getLanguage(),
+                book.getPublisher(),
+                book.getISBN());
     }
 
     @Override
@@ -294,20 +297,28 @@ public class BookServiceImpl implements BookService {
     }
 
 
+
     @Override
     public void moveToRead(Long bookId, Long userId) {
 
+        Optional<Readed> existingReadedBook = readRepository.findByBookIdAndUserId(bookId, userId);
+
+        if (existingReadedBook.isPresent()) {
+            readRepository.delete(existingReadedBook.get());
+        }
+
         ForReading forReading = forReadingRepository.findByBookIdAndUserId(bookId, userId)
                 .orElseThrow(() -> new IllegalArgumentException("Book not found in 'for reading' list"));
-
 
         Readed readed = new Readed();
         readed.setBook(forReading.getBook());
         readed.setUser(forReading.getUser());
 
         readRepository.save(readed);
+
         forReadingRepository.delete(forReading);
     }
+
 
 
     @Override

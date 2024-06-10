@@ -1,6 +1,7 @@
 package com.example.library.controllers;
 
 import com.example.library.models.DTOs.AuthorDTO;
+import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Book;
 import com.example.library.models.entities.Category;
@@ -91,5 +92,16 @@ public class AuthorController {
     }
 
 
+    @PostMapping("/edit/{id}")
+    public String updateAuthor(@PathVariable Long id, @ModelAttribute AuthorDTO authorDTO) {
 
+        authorService.updateAuthor(id, authorDTO.getName(), authorDTO.getBio(), authorDTO.getBirthdate());
+        return "redirect:/authors/allAuthorsInfo";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteAuthor(@PathVariable Long id) {
+        authorService.deleteAuthorById(id);
+        return "redirect:/authors/allAuthorsInfo";
+    }
 }

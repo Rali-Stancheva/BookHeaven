@@ -15,19 +15,20 @@ public class NewsDTO {
 
     private LocalDate date;
 
-    private String imageUrl;
+    private String image;
+
 
     public NewsDTO() {
 
     }
 
-    public NewsDTO(Long id, String title, String shortDescription, String content,  LocalDate date, String imageUrl) {
+    public NewsDTO(Long id, String title, String shortDescription, String content,  LocalDate date, String image) {
         this.id = id;
         this.title = title;
         this.shortDescription = shortDescription;
         this.content = content;
         this.date = date;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
 
@@ -71,12 +72,11 @@ public class NewsDTO {
         this.date = date;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
-
 }

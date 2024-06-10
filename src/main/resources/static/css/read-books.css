@@ -20,8 +20,24 @@
     margin-bottom: 10px;
 }
 
-.remove-book-btn {
+.move-book-btn {
     background-color: #178854;
+    border: 1px;
+    border-radius: 6px;
+    color: white;
+    height: 38px;
+    width: 115px;
+    margin-top: 16px;
+}
+
+.move-book-btn:hover {
+    background-color: white;
+    color:#178854;
+    border: 1px solid #178854;
+}
+
+.remove-book-btn{
+    background-color: #d63846;
     border: 1px;
     border-radius: 6px;
     color: white;
@@ -32,8 +48,8 @@
 
 .remove-book-btn:hover {
     background-color: white;
-    color:#178854;
-    border: 1px solid #178854;
+    color:#d63846;
+    border: 1px solid #d63846;
 }
 
 .close {

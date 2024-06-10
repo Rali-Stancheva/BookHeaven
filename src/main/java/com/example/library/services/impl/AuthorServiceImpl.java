@@ -6,9 +6,11 @@ import com.example.library.models.entities.Book;
 import com.example.library.repositories.AuthorRepository;
 import com.example.library.repositories.BookRepository;
 import com.example.library.services.AuthorService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -46,10 +48,10 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorDTO getAuthorById(Long id) {
         Optional<Author> authorOptional = authorRepository.findById(id);
 
-        if (authorOptional.isPresent()){
+        if (authorOptional.isPresent()) {
             Author author = authorOptional.get();
             return convertToDto(author);
-        }else{
+        } else {
             throw new NoSuchElementException("Author not found with id: " + id);
         }
     }
@@ -79,5 +81,27 @@ public class AuthorServiceImpl implements AuthorService {
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateAuthor(Long id, String newName, String newBio, LocalDate newBirthdate) {
+        Author author = authorRepository.findById(id).orElse(null);
+
+        if (author != null) {
+            author.setName(newName);
+            author.setBio(newBio);
+            author.setBirthdate(newBirthdate);
+
+            authorRepository.save(author);
+        }
+    }
+
+
+    @Override
+    @Transactional
+    public void deleteAuthorById(Long id) {
+        bookRepository.deleteByAuthorId(id);
+
+        authorRepository.deleteById(id);
     }
 }

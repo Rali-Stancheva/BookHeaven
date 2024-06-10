@@ -83,6 +83,7 @@
     <div class="book-info-container">
 
         <div class="admin-actions-container" th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+
             <div class="change-information-modal">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
@@ -176,7 +177,9 @@
                     <span th:text="${book.author.getName()}"></span>
                 </a>
             </p>
-
+            <p>Language: <span th:text="${book.language}"></span></p>
+            <p>Publisher: <span th:text="${book.publisher}"></span></p>
+            <p>ISBN: <span th:text="${book.ISBN}"></span></p>
             <p>Rating: <span th:text="${book.rating}"></span></p>
             <p th:text="${book.description}"></p>
             <div class="comments">

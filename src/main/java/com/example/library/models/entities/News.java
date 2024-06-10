@@ -27,19 +27,20 @@ public class News {
     private LocalDate date;
 
 
-    @Column(name = "image_URL")
-    private String imageUrl;
+    @Column(name = "image")
+    private String image;
+
 
 
     public News() {
     }
 
-    public News(String title,String shortDescription, String content, LocalDate date, String imageUrl) {
+    public News(String title,String shortDescription, String content, LocalDate date, String image) {
         this.title = title;
         this.shortDescription = shortDescription;
         this.content = content;
         this.date = date;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
 
@@ -76,12 +77,13 @@ public class News {
         this.date = date;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getShortDescription() {

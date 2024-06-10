@@ -3,6 +3,7 @@ package com.example.library.models.DTOs;
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Category;
 import com.example.library.models.entities.Lists;
+import jakarta.persistence.Column;
 
 import java.time.LocalDate;
 
@@ -16,8 +17,14 @@ public class BookDTO {
     private Category category;
     private String imageUrl;
 
+    private String language;
 
-    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String imageUrl) {
+    private String publisher;
+
+    private Integer ISBN;
+
+
+    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String imageUrl,String language,String publisher,Integer ISBN) {
         this.id = id;
         this.title = title;
         this.publication_date = publicationDate;
@@ -26,6 +33,9 @@ public class BookDTO {
         this.author = author;
         this.category = category;
         this.imageUrl = imageUrl;
+        this.language = language;
+        this.publisher = publisher;
+        this.ISBN = ISBN;
     }
 
 
@@ -93,5 +103,27 @@ public class BookDTO {
         this.imageUrl = imageUrl;
     }
 
+    public String getLanguage() {
+        return language;
+    }
 
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public Integer getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(Integer ISBN) {
+        this.ISBN = ISBN;
+    }
 }
