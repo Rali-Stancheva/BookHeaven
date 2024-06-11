@@ -5,14 +5,16 @@ import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Book;
 import com.example.library.models.entities.Category;
 import com.example.library.models.entities.User;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface BookService {
     List<BookDTO> getBooks();
 
-   // List<BookDTO> searchBooks(String query);
+    // List<BookDTO> searchBooks(String query);
 
     List<BookDTO> searchBooksByTitleOrAuthorOrCategory(String query);
 
@@ -46,9 +48,11 @@ public interface BookService {
 
     Book convertDtoToBook(BookDTO bookDTO);
 
-    void updateBook(Long id, String newTitle, Double newRating, String newDescription, Long newAuthorId);
+    void updateBook(Long id, String newTitle, LocalDate newPublicationDate, String newDescription, Double newRating,
+                    Long newAuthorId, Long newCategoryId, String newISBN, String newLanguage, String newPublisher,
+                    String newImage);
 
-    void addBook(String title, LocalDate publicationDate, String description, Double rating, Long authorId, Long categoryId, String imageUrl);
+    void addBook(String title, LocalDate publicationDate, String description, Double rating, Long authorId, Long categoryId, MultipartFile file, String language, String publisher, String ISBN) throws IOException;
 
     void deleteBookById(Long id);
 

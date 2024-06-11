@@ -6,7 +6,13 @@
     <title>News</title>
 </head>
 <body>
-<div th:replace="~{fragments/navigation :: navigation}"></div>
+<div th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+    <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
+</div>
+<div th:unless="${@currentUser.isLogged() and @currentUser.isAdmin()}">
+    <div th:replace="~{fragments/navigation :: navigation}"></div>
+</div>
+
 
 <div class="news-details-container">
     <div class="admin-actions-container" th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
@@ -45,8 +51,10 @@
                                 <input type="text" id="shortDescription" name="shortDescription" th:value="${news.shortDescription}"><br>
 
 
-                                <label for="image">Image:</label>
-                                <input type="file" id="image" name="image"><br>
+<!--                                <label for="image">Image:</label>-->
+<!--                                <input type="file" id="image" name="image"><br>-->
+                                <label for="file">Image:</label><br>
+                                <input type="file" id="file" name="file" />
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -60,38 +68,40 @@
             </div>
         </div>
 
-<!--        <div class="delete-information-modal">-->
-<!--            &lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCenter">-->
-<!--                Delete-->
-<!--            </button>-->
+        <div class="delete-information-modal">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModalCenter">
+                Delete
+            </button>
 
 
-<!--            &lt;!&ndash; Modal - Delete &ndash;&gt;-->
-<!--            <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog"-->
-<!--                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
-<!--                <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h5 class="modal-title" id="deleteModalLongTitle">Delete book</h5>-->
-<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                                <span aria-hidden="true">&times;</span>-->
-<!--                            </button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <form id="deleteForm" th:action="@{'/books/delete/' + ${book.id}}" method="post">-->
-<!--                                Are you sure you want to delete this book?-->
-<!--                                <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
-<!--                                    </button>-->
-<!--                                    <button type="submit" class="btn btn-danger">Delete</button>-->
-<!--                                </div>-->
-<!--                            </form>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+            <!-- Modal - Delete -->
+            <div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLongTitle">Delete news</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="deleteForm" th:action="@{'/news/delete/' + ${news.id}}" method="post">
+                                Are you sure you want to delete this news?
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 
@@ -135,7 +145,7 @@
 
 <div class="most-liked-container">
     <div th:each="news : ${topLikedNews}" class="most-liked">
-        <img class="most-liked-img" th:src="@{${news.imageUrl}}" alt="News Image">
+        <img class="most-liked-img" th:src="@{'/uploads/' + ${news.image}}" alt="News Image">
         <p class="most-liked-title" th:text="${news.title}"></p>
     </div>
 

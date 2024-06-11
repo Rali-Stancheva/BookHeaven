@@ -34,7 +34,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="editForm" th:action="@{'/authors/edit/' + ${author.id}}" method="post">
+<!--                            th:action="@{'/authors/edit/' + ${author.id}}"-->
+                            <form id="editForm" th:action="@{'/authors/edit/' + ${author.id}}" method="post" enctype="multipart/form-data">
                                 <label for="name">Name: </label>
                                 <input type="text" id="name" name="name" th:value="${author.name}"><br>
 
@@ -46,6 +47,8 @@
                                 <label for="birthdate">Birthdate: </label>
                                 <input type="date" id="birthdate" name="birthdate" th:value="${author.birthdate}"><br>
 
+                                <label for="file">Image:</label><br>
+                                <input type="file" id="file" name="file" />
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -99,7 +102,7 @@
     <p th:text="${author.birthdate}">
 
     <div class="author-img">
-        <img th:src="@{${author.imageUrl}}">
+        <img th:src="@{'/uploads/' + ${author.image}}">
     </div>
 
     <p th:text="${author.bio}">
@@ -113,7 +116,7 @@
 
     <div th:each="b : ${randomBooks}" class="random-books">
         <a th:href="@{'/books/' + ${b.id}}">
-            <img class="random-books-img" th:src="@{${b.imageUrl}}" alt="Book Image">
+            <img class="random-books-img" th:src="@{'/uploads/' + ${b.image}}" alt="Book Image">
         </a>
         <p class="random-books-title" th:text="${b.title}"></p>
     </div>

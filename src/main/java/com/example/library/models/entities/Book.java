@@ -16,7 +16,7 @@ public class Book {
     private String title;
 
     @Column(name = "publication_date")
-    private LocalDate publication_date;
+    private LocalDate publicationDate;
 
     @Column(name = "description")
     private String description;
@@ -33,8 +33,8 @@ public class Book {
     private Category category;
 
 
-    @Column(name = "image_URL")
-    private String imageUrl;
+    @Column(name = "image")
+    private String image;
 
     @Column
     private String language;
@@ -43,21 +43,21 @@ public class Book {
     private String publisher;
 
     @Column
-    private Integer ISBN;
+    private String ISBN;
 
 
     public Book() {
 
     }
 
-    public Book(String title, LocalDate publication_date, String description, Double rating, Author author, Category category, String imageUrl,String language,String publisher,Integer ISBN) {
+    public Book(String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String image, String language, String publisher, String ISBN) {
         this.title = title;
-        this.publication_date = publication_date;
+        this.publicationDate = publicationDate;
         this.description = description;
         this.rating = rating;
         this.author = author;
         this.category = category;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.language = language;
         this.publisher = publisher;
         this.ISBN = ISBN;
@@ -80,12 +80,12 @@ public class Book {
         this.title = title;
     }
 
-    public LocalDate getPublication_date() {
-        return publication_date;
+    public LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublication_date(LocalDate publicationDate) {
-        this.publication_date = publicationDate;
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public String getDescription() {
@@ -120,12 +120,12 @@ public class Book {
         this.category = category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getLanguage() {
@@ -144,11 +144,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Integer getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(Integer ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 }

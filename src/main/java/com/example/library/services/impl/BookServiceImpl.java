@@ -6,8 +6,17 @@ import com.example.library.repositories.*;
 import com.example.library.services.BookService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,8 +39,13 @@ public class BookServiceImpl implements BookService {
 
     private final ReviewRepository reviewRepository;
 
+    private final FileStorageService fileStorageService;
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, UserRepository userRepository, ReadRepository readRepository, ForReadingRepository forReadingRepository, CategoryRepository categoryRepository, RatingFromUserRepository ratingFromUserRepository, AuthorRepository authorRepository, ReviewRepository reviewRepository) {
+    public BookServiceImpl(BookRepository bookRepository, UserRepository userRepository, ReadRepository readRepository, ForReadingRepository forReadingRepository, CategoryRepository categoryRepository, RatingFromUserRepository ratingFromUserRepository, AuthorRepository authorRepository, ReviewRepository reviewRepository, FileStorageService fileStorageService) {
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.readRepository = readRepository;
@@ -40,6 +54,7 @@ public class BookServiceImpl implements BookService {
         this.ratingFromUserRepository = ratingFromUserRepository;
         this.authorRepository = authorRepository;
         this.reviewRepository = reviewRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     @Override
@@ -69,8 +84,8 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public BookDTO getBookById(Long id){
-        Optional<Book>bookOptional = bookRepository.findById(id);
+    public BookDTO getBookById(Long id) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
 
         if (bookOptional.isPresent()) {
             Book book = bookOptional.get();
@@ -82,16 +97,16 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public BookDTO convertToDto(Book book){
+    public BookDTO convertToDto(Book book) {
         return new BookDTO(
                 book.getId(),
                 book.getTitle(),
-                book.getPublication_date(),
+                book.getPublicationDate(),
                 book.getDescription(),
                 book.getRating(),
                 book.getAuthor(),
                 book.getCategory(),
-                book.getImageUrl(),
+                book.getImage(),
                 book.getLanguage(),
                 book.getPublisher(),
                 book.getISBN());
@@ -158,7 +173,7 @@ public class BookServiceImpl implements BookService {
 
         List<Book> reading = new ArrayList<>();
 
-        for (ForReading r : forReadings){
+        for (ForReading r : forReadings) {
             reading.add(r.getBook());
         }
 
@@ -244,40 +259,26 @@ public class BookServiceImpl implements BookService {
         for (RatingFromUser rating : ratings) {
             totalRating += rating.getRating();
         }
-        return  totalRating * 1.0 / ratings.size();
-    }
-
-
-    @Override
-    public void addBook(String title, LocalDate publicationDate, String description, Double rating, Long authorId, Long categoryId, String imageUrl) {
-        Book book = new Book();
-        book.setTitle(title);
-        book.setPublication_date(publicationDate);
-        book.setDescription(description);
-        book.setRating(rating);
-        book.setImageUrl(imageUrl);
-
-        Author author = authorRepository.findById(authorId)
-                .orElseThrow(() -> new NoSuchElementException("Author not found with id: " + authorId));
-        book.setAuthor(author);
-
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new NoSuchElementException("Category not found with id: " + categoryId));
-        book.setCategory(category);
-
-        bookRepository.save(book);
+        return totalRating * 1.0 / ratings.size();
     }
 
 
     @Override
     @Transactional
     public void deleteBookById(Long id) {
+        Book book = bookRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found"));
+
+        String photoFileName = book.getImage();
+
         reviewRepository.deleteByBookId(id);
         ratingFromUserRepository.deleteByBookId(id);
         readRepository.deleteByBookId(id);
         forReadingRepository.deleteByBookId(id);
-
         bookRepository.deleteById(id);
+
+        if (photoFileName != null && !photoFileName.isEmpty()) {
+            fileStorageService.deleteFile(photoFileName);
+        }
     }
 
 
@@ -295,7 +296,6 @@ public class BookServiceImpl implements BookService {
 
         return topRatedBookDTOs;
     }
-
 
 
     @Override
@@ -320,19 +320,18 @@ public class BookServiceImpl implements BookService {
     }
 
 
-
     @Override
     public Book convertDtoToBook(BookDTO bookDTO) {
         Book book = new Book();
 
         book.setId(bookDTO.getId());
         book.setTitle(bookDTO.getTitle());
-        book.setPublication_date(bookDTO.getPublication_date());
+        book.setPublicationDate(bookDTO.getPublicationDate());
         book.setDescription(bookDTO.getDescription());
         book.setRating(bookDTO.getRating());
         book.setAuthor(bookDTO.getAuthor());
         book.setCategory(bookDTO.getCategory());
-        book.setImageUrl(bookDTO.getImageUrl());
+        book.setImage(bookDTO.getImage());
 
 
         return book;
@@ -340,13 +339,50 @@ public class BookServiceImpl implements BookService {
 
 
     @Override
-    public void updateBook(Long id, String newTitle,Double newRating, String newDescription, Long newAuthorId) {
+    public void addBook(String title, LocalDate publicationDate, String description, Double rating, Long authorId, Long categoryId, MultipartFile file, String language, String publisher, String ISBN) throws IOException {
+        String fileName = file.getOriginalFilename();
+        Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
+        Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new NoSuchElementException("Author not found with id: " + authorId));
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new NoSuchElementException("Category not found with id: " + categoryId));
+
+        Book book = new Book();
+        book.setTitle(title);
+        book.setPublicationDate(publicationDate);
+        book.setDescription(description);
+        book.setRating(rating);
+        book.setAuthor(author);
+        book.setCategory(category);
+        book.setImage(fileName);
+        book.setLanguage(language);
+        book.setPublisher(publisher);
+        book.setISBN(ISBN);
+
+        bookRepository.save(book);
+
+    }
+
+
+
+    @Override
+    public void updateBook(Long id, String newTitle, LocalDate newPublicationDate, String newDescription, Double newRating,
+                           Long newAuthorId, Long newCategoryId, String newISBN, String newLanguage, String newPublisher,
+                           String newImage) {
         Book book = bookRepository.findById(id).orElse(null);
 
-        if (book != null){
+        if (book != null) {
             book.setTitle(newTitle);
-            book.setRating(newRating);
+            book.setPublicationDate(newPublicationDate);
             book.setDescription(newDescription);
+            book.setRating(newRating);
+            book.setISBN(newISBN);
+            book.setLanguage(newLanguage);
+            book.setPublisher(newPublisher);
+            book.setImage(newImage);
 
             if (newAuthorId != null) {
                 Author author = authorRepository.findById(newAuthorId).orElse(null);
@@ -355,9 +391,17 @@ public class BookServiceImpl implements BookService {
                 }
             }
 
+            if (newCategoryId != null) {
+                Category category = categoryRepository.findById(newCategoryId).orElse(null);
+                if (category != null) {
+                    book.setCategory(category);
+                }
+            }
+
             bookRepository.save(book);
         }
     }
+
 
 
 }

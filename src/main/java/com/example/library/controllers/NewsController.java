@@ -1,6 +1,8 @@
 package com.example.library.controllers;
 
+
 import com.example.library.models.DTOs.NewsDTO;
+
 import com.example.library.models.entities.News;
 import com.example.library.repositories.NewsRepository;
 import com.example.library.services.LikesService;
@@ -115,42 +117,44 @@ public class NewsController {
     }
 
 
+    @PostMapping("/edit/{id}")
+        public String updateNews(@ModelAttribute News updatedNews, @RequestParam("file") MultipartFile file) throws IOException {
+        Long newsId = updatedNews.getId();
 
 
-//    @PostMapping("/edit")
-//    public String updateNews(@ModelAttribute News news, @RequestParam("file") MultipartFile file) throws IOException {
-//        Long newsId = news.getId();
-//
-//        NewsDTO newsDTO = newsService.getNewsById(newsId);
-//        News existingNews = newsService.convertDtoToNews(newsDTO);
-//
-//        existingNews.setTitle(news.getTitle());
-//        existingNews.setContent(news.getContent());
-//        existingNews.setDate(news.getDate());
-//        existingNews.setShortDescription(news.getShortDescription());
-//
-//        // Проверка дали е получен файл
-//        if (!file.isEmpty()) {
-//
-//            String oldFileName = existingNews.getImage();
-//            if (oldFileName != null && !oldFileName.isEmpty()) {
-//                fileStorageService.deleteFile(oldFileName);
-//            }
-//
-//            String fileName = file.getOriginalFilename();
-//            Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
-//            Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
-//
-//            existingNews.setImage(fileName);
-//        }
-//
-//        newsService.updateNews(existingNews);
-//
-//        return "redirect:/news/" + newsId;
-//    }
+        NewsDTO newsDTO = newsService.getNewsById(newsId);
+        News existingNews = newsService.convertDtoToNews(newsDTO);
 
+        existingNews.setTitle(updatedNews.getTitle());
+        existingNews.setContent(updatedNews.getContent());
+        existingNews.setDate(updatedNews.getDate());
+        existingNews.setShortDescription(updatedNews.getShortDescription());
+        existingNews.setImage(updatedNews.getImage());
 
+        if (!file.isEmpty()) {
 
+            String oldFileName = existingNews.getImage();
+            if (oldFileName != null && !oldFileName.isEmpty()) {
+                fileStorageService.deleteFile(oldFileName);
+            }
+
+            String fileName = file.getOriginalFilename();
+            Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
+            Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            existingNews.setImage(fileName);
+        }
+
+        newsService.updateNews(existingNews);
+
+        return "redirect:/news/" + newsId;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteNews(@PathVariable Long id) {
+        newsService.deleteNewsById(id);
+        return "redirect:/news/allNews";
+    }
 
 }
 

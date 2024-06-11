@@ -47,7 +47,7 @@ public class HomeController {
     public String getLastPublishedBooksAndNews(Model model) {
         // Fetch and sort books
         List<BookDTO> latestBooks = bookService.getBooks().stream()
-                .sorted(Comparator.comparing(BookDTO::getPublication_date).reversed())
+                .sorted(Comparator.comparing(BookDTO::getPublicationDate).reversed())
                 .limit(6)
                 .collect(Collectors.toList());
 

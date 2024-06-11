@@ -18,7 +18,7 @@
         <div class="col-md-2 mb-4" th:each="b : ${allBooks}">
             <div class="card">
                 <a th:href="@{'/books/' + ${b.id}}">
-                    <img th:src="@{${b.imageUrl}}" class="card-img-top" alt="Book Image">
+                    <img th:src="@{'/uploads/' + ${b.image}}" class="card-img-top" alt="Book Image">
                 </a>
                 <div class="card-body">
                     <p class="card-text">

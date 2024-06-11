@@ -10,12 +10,12 @@
 
 <h1>Add Book</h1>
 
-<form th:action="@{'/books/add'}" method="post">
+<form th:action="@{'/books/add'}" method="post" enctype="multipart/form-data">
   <label for="title">Title:</label><br>
   <input type="text" id="title" name="title"><br>
 
-  <label for="publication_date">Publish Date:</label><br>
-  <input type="date" id="publication_date" name="publication_date"><br>
+  <label for="publicationDate">Publish Date:</label><br>
+  <input type="date" id="publicationDate" name="publicationDate"><br>
 
   <label for="description">Description:</label><br>
   <textarea id="description" name="description"></textarea><br>
@@ -28,8 +28,6 @@
   <select id="author" name="authorId" class="form-control" required>
     <option value="" disabled selected hidden>Please select an author.</option>
     <option th:each="author : ${allAuthors}" th:value="${author.id}" th:text="${author.getName()}"></option>
-
-
   </select><br>
 
 
@@ -40,9 +38,17 @@
   </select><br>
 
 
-  <label for="imageUrl">Image URL:</label><br>
-  <input type="text" id="imageUrl" name="imageUrl"><br>
+  <label for="image">Image:</label>
+  <input type="file" id="image" name="image" required><br>
 
+  <label for="language">Language:</label><br>
+  <input type="text" id="language" name="language"><br>
+
+  <label for="publisher">Publisher:</label><br>
+  <input type="text" id="publisher" name="publisher"><br>
+
+  <label for="ISBN">ISBN:</label><br>
+  <input type="number" id="ISBN" name="ISBN"><br>
 
   <input type="submit" value="Add">
 </form>

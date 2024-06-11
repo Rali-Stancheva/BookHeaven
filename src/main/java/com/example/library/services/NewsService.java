@@ -2,6 +2,7 @@ package com.example.library.services;
 
 import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.DTOs.NewsDTO;
+import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Book;
 import com.example.library.models.entities.News;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +23,7 @@ public interface NewsService {
 
     News convertDtoToNews(NewsDTO newsDTO);
 
+    void updateNews(News news);
 
-
-
+    void deleteNewsById(Long id);
 }

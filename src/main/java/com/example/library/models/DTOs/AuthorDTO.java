@@ -1,5 +1,7 @@
 package com.example.library.models.DTOs;
 
+import jakarta.persistence.Column;
+
 import java.time.LocalDate;
 
 public class AuthorDTO {
@@ -12,14 +14,14 @@ public class AuthorDTO {
 
     private LocalDate birthdate;
 
-    private String imageUrl;
+    private String image;
 
-    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate,String imageUrl) {
+    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate,String image) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.birthdate = birthdate;
-        this.imageUrl = imageUrl;
+        this.image = image;
     }
 
 
@@ -55,11 +57,11 @@ public class AuthorDTO {
         this.birthdate = birthdate;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

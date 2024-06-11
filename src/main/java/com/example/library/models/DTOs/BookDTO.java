@@ -2,37 +2,32 @@ package com.example.library.models.DTOs;
 
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Category;
-import com.example.library.models.entities.Lists;
-import jakarta.persistence.Column;
 
 import java.time.LocalDate;
 
 public class BookDTO {
     private Long id;
     private String title;
-    private LocalDate publication_date;
+    private LocalDate publicationDate;
     private String description;
     private Double rating;
     private Author author;
     private Category category;
-    private String imageUrl;
-
+    private String image;
     private String language;
-
     private String publisher;
+    private String ISBN;
 
-    private Integer ISBN;
 
-
-    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String imageUrl,String language,String publisher,Integer ISBN) {
+    public BookDTO(Long id, String title, LocalDate publicationDate, String description, Double rating, Author author, Category category, String image, String language, String publisher, String ISBN) {
         this.id = id;
         this.title = title;
-        this.publication_date = publicationDate;
+        this.publicationDate = publicationDate;
         this.description = description;
         this.rating = rating;
         this.author = author;
         this.category = category;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.language = language;
         this.publisher = publisher;
         this.ISBN = ISBN;
@@ -55,12 +50,12 @@ public class BookDTO {
         this.title = title;
     }
 
-    public LocalDate getPublication_date() {
-        return publication_date;
+    public LocalDate getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublication_date(LocalDate publication_date) {
-        this.publication_date = publication_date;
+    public void setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
     }
 
     public String getDescription() {
@@ -95,12 +90,12 @@ public class BookDTO {
         this.category = category;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getLanguage() {
@@ -119,11 +114,11 @@ public class BookDTO {
         this.publisher = publisher;
     }
 
-    public Integer getISBN() {
+    public String getISBN() {
         return ISBN;
     }
 
-    public void setISBN(Integer ISBN) {
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
 }

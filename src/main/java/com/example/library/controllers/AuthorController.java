@@ -1,17 +1,25 @@
 package com.example.library.controllers;
 
 import com.example.library.models.DTOs.AuthorDTO;
-import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.entities.Author;
 import com.example.library.models.entities.Book;
 import com.example.library.models.entities.Category;
 import com.example.library.services.AuthorService;
 import com.example.library.services.CategoryService;
+import com.example.library.services.impl.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,11 +29,18 @@ public class AuthorController {
 
     private final AuthorService authorService;
     private final CategoryService categoryService;
+    private final FileStorageService fileStorageService;
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
 
     @Autowired
-    public AuthorController(AuthorService authorService, CategoryService categoryService) {
+    public AuthorController(AuthorService authorService, CategoryService categoryService, FileStorageService fileStorageService) {
         this.authorService = authorService;
         this.categoryService = categoryService;
+
+        this.fileStorageService = fileStorageService;
     }
 
 
@@ -71,32 +86,54 @@ public class AuthorController {
 
 
     @PostMapping("/add")
-    public String addAuthors(@ModelAttribute AuthorDTO authorDTO, Model model) {
-        String name = authorDTO.getName();
-        String bio = authorDTO.getBio();
-        LocalDate birthdate = authorDTO.getBirthdate();
-        String imageUrl = authorDTO.getImageUrl();
+    public String addAuthor(@RequestParam("name") String name,
+                          @RequestParam("bio") String bio,
+                          @RequestParam("birthdate") LocalDate birthdate,
+                          @RequestParam("image") MultipartFile file) throws IOException {
 
-        Author author = new Author(name, bio, birthdate, imageUrl);
+        authorService.addAuthor(name,  bio, birthdate,  file);
 
-        if (!authorService.existsByName(name)){
-            authorService.addAuthor(author);
-            model.addAttribute("successMessage", "The author has been successfully added!");
-        }else {
-            model.addAttribute("errorMessage", "The author already exist!");
-        }
-
-
-
-        return "add-author";
+        return "redirect:/authors/add-form";
     }
 
 
-    @PostMapping("/edit/{id}")
-    public String updateAuthor(@PathVariable Long id, @ModelAttribute AuthorDTO authorDTO) {
+//    @PostMapping("/edit/{id}")
+//    public String updateAuthor(@PathVariable Long id, @ModelAttribute AuthorDTO authorDTO) {
+//
+//        authorService.updateAuthor(id, authorDTO.getName(), authorDTO.getBio(), authorDTO.getBirthdate());
+//        return "redirect:/authors/allAuthorsInfo";
+//    }
 
-        authorService.updateAuthor(id, authorDTO.getName(), authorDTO.getBio(), authorDTO.getBirthdate());
-        return "redirect:/authors/allAuthorsInfo";
+    @PostMapping("/edit/{id}")
+    public String updateAuthor(@ModelAttribute Author updatedAuthor, @RequestParam("file") MultipartFile file) throws IOException {
+        Long authorId = updatedAuthor.getId();
+
+
+        AuthorDTO authorDTO = authorService.getAuthorById(authorId);
+        Author existingAuthor = authorService.convertDtoToAuthor(authorDTO);
+
+        existingAuthor.setName(updatedAuthor.getName());
+        existingAuthor.setBio(updatedAuthor.getBio());
+        existingAuthor.setBirthdate(updatedAuthor.getBirthdate());
+        existingAuthor.setImage(updatedAuthor.getImage());
+
+        if (!file.isEmpty()) {
+
+            String oldFileName = existingAuthor.getImage();
+            if (oldFileName != null && !oldFileName.isEmpty()) {
+                fileStorageService.deleteFile(oldFileName);
+            }
+
+            String fileName = file.getOriginalFilename();
+            Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
+            Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            existingAuthor.setImage(fileName);
+        }
+
+        authorService.updateAuthor(existingAuthor);
+
+        return "redirect:/authors/" + authorId;
     }
 
     @PostMapping("/delete/{id}")

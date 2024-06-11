@@ -3,19 +3,25 @@ package com.example.library.controllers;
 import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.DTOs.ReviewDTO;
 import com.example.library.models.entities.*;
-import com.example.library.services.AuthorService;
-import com.example.library.services.BookService;
-import com.example.library.services.ReviewService;
-import com.example.library.services.UserService;
+import com.example.library.services.*;
+import com.example.library.services.impl.FileStorageService;
 import com.example.library.util.CurrentUser;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +37,21 @@ public class BooksController {
     private final UserService userService;
     private final ReviewService reviewService;
     private final AuthorService authorService;
+    private final FileStorageService fileStorageService;
+    private final CategoryService categoryService;
+
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
 
     @Autowired
-    public BooksController(BookService bookService, UserService userService, ReviewService reviewService, AuthorService authorService) {
+    public BooksController(BookService bookService, UserService userService, ReviewService reviewService, AuthorService authorService, FileStorageService fileStorageService, CategoryService categoryService) {
         this.bookService = bookService;
         this.userService = userService;
         this.reviewService = reviewService;
         this.authorService = authorService;
+        this.fileStorageService = fileStorageService;
+        this.categoryService = categoryService;
     }
 
 //    @GetMapping("/allBooks")
@@ -60,7 +74,6 @@ public class BooksController {
     }
 
 
-
     @GetMapping("/{id}")
     public String getBookDetails(Model model, @PathVariable Long id) {
         BookDTO book = bookService.getBookById(id);
@@ -68,6 +81,9 @@ public class BooksController {
 
         List<Author> authors = authorService.findAll();
         model.addAttribute("authors", authors);
+
+        List<Category> allCategories = categoryService.findAll();
+        model.addAttribute("allCategories", allCategories);
 
         CurrentUser currentUser = userService.getCurrentUser();
         int userRating = bookService.getUserRatingForBook(id, currentUser.getId());
@@ -93,7 +109,7 @@ public class BooksController {
 
 
     @GetMapping("/top-rated")
-    public String getTopRatedBooks(Model model){
+    public String getTopRatedBooks(Model model) {
         List<BookDTO> topRatedBooks = bookService.getTopRatedBooks(10);
         model.addAttribute("topRatedBooks", topRatedBooks);
 
@@ -233,28 +249,83 @@ public class BooksController {
 
 
     @PostMapping("/add")
-    public String addBook(@ModelAttribute BookDTO bookDTO, @RequestParam Long authorId, @RequestParam Long categoryId, Model model) {
-        bookService.addBook(bookDTO.getTitle(),
-                bookDTO.getPublication_date(),
-                bookDTO.getDescription(),
-                bookDTO.getRating(),
-                authorId,
-                categoryId,
-                bookDTO.getImageUrl());
+    public String addBooks(@RequestParam("title") String title,
+                           @RequestParam("publicationDate") LocalDate publicationDate,
+                           @RequestParam("description") String description,
+                           @RequestParam("rating") Double rating,
+                           @RequestParam("authorId") Long authorId,
+                           @RequestParam("categoryId") Long categoryId,
+                           @RequestParam("image") MultipartFile file,
+                           @RequestParam("language") String language,
+                           @RequestParam("publisher") String publisher,
+                           @RequestParam("ISBN") String ISBN) throws IOException {
 
-        return "add-books";
+
+        bookService.addBook(title, publicationDate, description, rating, authorId, categoryId, file, language, publisher, ISBN);
+
+        return "redirect:/books/add-form";
     }
 
 
+//    @PostMapping("/edit/{id}")
+//    public String updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
+//        Long authorId = null;
+//        if (bookDTO.getAuthor() != null) {
+//            authorId = bookDTO.getAuthor().getId();
+//        }
+//
+//        bookService.updateBook(id, bookDTO.getTitle(), bookDTO.getRating(), bookDTO.getDescription(), authorId);
+//        return "redirect:/books/{id}";
+//    }
+
     @PostMapping("/edit/{id}")
-    public String updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
-        Long authorId = null;
-        if (bookDTO.getAuthor() != null) {
-            authorId = bookDTO.getAuthor().getId();
+    public String updateBook(@ModelAttribute Book updatedBook,
+                             @RequestParam("file") MultipartFile file,
+                             @RequestParam("authorId") Long authorId,
+                             @RequestParam("categoryId") Long categoryId) throws IOException {
+
+        Long bookId = updatedBook.getId();
+
+        BookDTO bookDTO = bookService.getBookById(bookId);
+        Book existingBook = bookService.convertDtoToBook(bookDTO);
+
+        existingBook.setTitle(updatedBook.getTitle());
+        existingBook.setPublicationDate(updatedBook.getPublicationDate());
+        existingBook.setDescription(updatedBook.getDescription());
+        existingBook.setRating(updatedBook.getRating());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setAuthor(updatedBook.getAuthor());
+        existingBook.setCategory(updatedBook.getCategory());
+        existingBook.setISBN(updatedBook.getISBN());
+        existingBook.setLanguage(updatedBook.getLanguage());
+        existingBook.setPublisher(updatedBook.getPublisher());
+
+        if (!file.isEmpty()) {
+            String oldFileName = existingBook.getImage();
+            if (oldFileName != null && !oldFileName.isEmpty()) {
+                fileStorageService.deleteFile(oldFileName);
+            }
+
+            String fileName = file.getOriginalFilename();
+            Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
+            Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            existingBook.setImage(fileName);
         }
 
-        bookService.updateBook(id, bookDTO.getTitle(), bookDTO.getRating(), bookDTO.getDescription(), authorId);
-        return "redirect:/books/{id}";
+        bookService.updateBook(existingBook.getId(),
+                existingBook.getTitle(),
+                existingBook.getPublicationDate(),
+                existingBook.getDescription(),
+                existingBook.getRating(),
+                authorId,
+                categoryId,
+                existingBook.getISBN(),
+                existingBook.getLanguage(),
+                existingBook.getPublisher(),
+                existingBook.getImage());
+
+        return "redirect:/books/" + bookId;
     }
 
 

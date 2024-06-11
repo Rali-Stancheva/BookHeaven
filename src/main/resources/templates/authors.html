@@ -16,7 +16,7 @@
 
 
 <div class="card" style="width: 18rem;" th:each="a : ${allAuthorsInfo}">
-    <img th:src="@{${a.imageUrl}}" class="card-img-top" alt="Author Image">
+    <img th:src="@{'/uploads/' + ${a.image}}" class="card-img-top" alt="Author Image">
     <div class="card-body">
         <h5 class="card-title" th:text="${a.name}"></h5>
         <a th:href="@{'/authors/' + ${a.id}}" class="btn btn-primary">See more</a>

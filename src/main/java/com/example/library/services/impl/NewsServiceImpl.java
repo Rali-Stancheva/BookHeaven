@@ -1,26 +1,17 @@
 package com.example.library.services.impl;
 
-import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.DTOs.NewsDTO;
-import com.example.library.models.entities.Book;
 import com.example.library.models.entities.News;
 import com.example.library.repositories.LikesRepository;
 import com.example.library.repositories.NewsRepository;
 import com.example.library.repositories.UserRepository;
 import com.example.library.services.NewsService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -33,16 +24,17 @@ public class NewsServiceImpl implements NewsService {
     private final UserRepository userRepository;
     private final LikesRepository likesRepository;
 
+    private final FileStorageService fileStorageService;
 
     @Value("${file.upload-dir}")
     private String uploadDir;
 
     @Autowired
-    public NewsServiceImpl(NewsRepository newsRepository, UserRepository userRepository, LikesRepository likesRepository) {
+    public NewsServiceImpl(NewsRepository newsRepository, UserRepository userRepository, LikesRepository likesRepository, FileStorageService fileStorageService) {
         this.newsRepository = newsRepository;
         this.userRepository = userRepository;
         this.likesRepository = likesRepository;
-
+        this.fileStorageService = fileStorageService;
     }
 
 
@@ -88,8 +80,6 @@ public class NewsServiceImpl implements NewsService {
     }
 
 
-
-
     @Override
     public News convertDtoToNews(NewsDTO newsDTO) {
         News news = new News();
@@ -106,26 +96,37 @@ public class NewsServiceImpl implements NewsService {
     }
 
 
-//    @Override
-//    public void updateNews(News updatedNews) {
-//        Optional<News> newsOptional = newsRepository.findById(updatedNews.getId());
-//
-//        if (newsOptional.isPresent()) {
-//            News news = newsOptional.get();
-//
-//            news.setTitle(updatedNews.getTitle());
-//            news.setContent(updatedNews.getContent());
-//            news.setDate(updatedNews.getDate());
-//            news.setShortDescription(updatedNews.getShortDescription());
-//            news.setImage(updatedNews.getImage());
-//
-//            newsRepository.save(news);
-//        } else {
-//            throw new NoSuchElementException("News not found with id: " + updatedNews.getId());
-//        }
-//    }
+    @Override
+    public void updateNews(News updatedNews) {
+        Optional<News> newsOptional = newsRepository.findById(updatedNews.getId());
 
+        if (newsOptional.isPresent()) {
+            News news = newsOptional.get();
+            news.setTitle(updatedNews.getTitle());
+            news.setContent(updatedNews.getContent());
+            news.setDate(updatedNews.getDate());
+            news.setShortDescription(updatedNews.getShortDescription());
+            news.setImage(updatedNews.getImage());
 
+            newsRepository.save(news);
+        } else {
+            throw new NoSuchElementException("News not found with id: " + updatedNews.getId());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteNewsById(Long id) {
+        News news = newsRepository.findById(id).orElseThrow(() -> new RuntimeException("News not found"));
+        String photoFileName = news.getImage();
+
+        likesRepository.deleteByNewsId(id);
+        newsRepository.deleteById(id);
+
+        if (photoFileName != null && !photoFileName.isEmpty()) {
+            fileStorageService.deleteFile(photoFileName);
+        }
+    }
 
 
 }

@@ -7,7 +7,7 @@
 <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
 
 <h1>Add Authors</h1>
-<form th:action="@{'/authors/add'}" method="post">
+<form th:action="@{'/authors/add'}" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name" required><br>
 
@@ -16,6 +16,9 @@
 
     <label for="birthdate">Birthdate:</label><br>
     <input type="date" id="birthdate" name="birthdate" required><br>
+
+    <label for="image">Image:</label>
+    <input type="file" id="image" name="image" required><br>
 
 
     <input type="submit" value="Add">

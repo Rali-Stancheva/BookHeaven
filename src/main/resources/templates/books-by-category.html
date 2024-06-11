@@ -13,7 +13,7 @@
 <div class="book-container">
   <div class="book-row" th:each="b : ${book}">
      <div class="img-container">
-       <img class="img-book-by-category" th:src="@{${b.imageUrl}}">
+       <img class="img-book-by-category" th:src="@{'/uploads/' + ${b.image}}">
      </div>
     <div class="book-text">
       <span th:text="${b.title}"></span> by <span th:text="${b.author.getName()}"></span><br>
