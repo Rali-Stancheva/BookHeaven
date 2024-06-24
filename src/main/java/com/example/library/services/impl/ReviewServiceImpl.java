@@ -61,4 +61,14 @@ public class ReviewServiceImpl implements ReviewService {
 
         return commentDTOs;
     }
+
+    @Override
+    public Review getReviewById(Long id) {
+        return reviewRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteReviewById(Long id) {
+        reviewRepository.deleteById(id);
+    }
 }

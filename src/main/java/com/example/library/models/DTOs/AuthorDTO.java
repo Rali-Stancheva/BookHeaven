@@ -1,8 +1,10 @@
 package com.example.library.models.DTOs;
 
+import com.example.library.models.entities.AuthorImage;
 import jakarta.persistence.Column;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class AuthorDTO {
 
@@ -16,12 +18,15 @@ public class AuthorDTO {
 
     private String image;
 
-    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate,String image) {
+    private List<AuthorImage> imagesList;
+
+    public AuthorDTO(Long id, String name, String bio, LocalDate birthdate,String image,List<AuthorImage> imagesList) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.birthdate = birthdate;
         this.image = image;
+        this.imagesList = imagesList;
     }
 
 
@@ -63,5 +68,13 @@ public class AuthorDTO {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<AuthorImage> getImagesList() {
+        return imagesList;
+    }
+
+    public void setImagesList(List<AuthorImage> imagesList) {
+        this.imagesList = imagesList;
     }
 }

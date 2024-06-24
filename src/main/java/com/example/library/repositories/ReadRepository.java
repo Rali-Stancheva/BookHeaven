@@ -16,5 +16,6 @@ public interface ReadRepository extends JpaRepository<Readed, Long> {
 
     void deleteByBookId(Long bookId);
 
+
     Optional<Readed> findByBookIdAndUserId(Long bookId, Long userId);
 }

@@ -6,24 +6,26 @@
 <body>
 <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
 
-<h1>Add News</h1>
-<form th:action="@{'/news/add'}" method="post" enctype="multipart/form-data">
-    <label for="title">Title:</label><br>
-    <input type="text" id="title" name="title" required><br>
 
-    <label for="shortDescription">Short Description:</label><br>
-    <textarea id="shortDescription" name="shortDescription" required></textarea><br>
+<form class="add-form-container" th:action="@{'/news/add'}" method="post" enctype="multipart/form-data">
 
-    <label for="content">Content:</label><br>
-    <textarea id="content" name="content" required></textarea><br>
+    <h1>Add News</h1>
+    <label class="field" for="title">Title:</label><br>
+    <input class="input-field" type="text" id="title" name="title" required><br>
 
-    <label for="date">Date:</label><br>
-    <input type="date" id="date" name="date" required><br>
+    <label class="field" for="shortDescription">Short Description:</label><br>
+    <textarea class="input-field" id="shortDescription" name="shortDescription" required></textarea><br>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" required><br>
+    <label class="field"  for="content">Content:</label><br>
+    <textarea class="input-field" id="content" name="content" required></textarea><br>
 
-    <input type="submit" value="Add">
+    <label class="field" for="date">Date:</label><br>
+    <input class="input-field" type="date" id="date" name="date" required><br>
+
+    <label class="field" for="image">Image:</label>
+    <input class="input-field" type="file" id="image" name="image" required><br>
+
+    <button class="add-form-send-btn" type="submit">Add</button>
 </form>
 </body>
 </html>

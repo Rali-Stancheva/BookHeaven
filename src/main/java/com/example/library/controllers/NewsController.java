@@ -10,6 +10,7 @@ import com.example.library.services.NewsService;
 import com.example.library.services.UserService;
 import com.example.library.services.impl.FileStorageService;
 import com.example.library.util.CurrentUser;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -60,7 +61,12 @@ public class NewsController {
 
 
     @GetMapping("/allNews")
-    public String getNews(Model model) {
+    public String getNews(Model model, HttpServletResponse response) {
+        // Set cache control headers to disable caching
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
         List<NewsDTO> allNews = newsService.getNews().stream()
                 .sorted(Comparator.comparing(NewsDTO::getDate).reversed())
                 .collect(Collectors.toList());

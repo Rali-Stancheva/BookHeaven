@@ -6,8 +6,10 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light custom-bg-color" th:fragment="admin-navigation">
-    <a class="admin-navbar-brand" th:href="@{/admin-page}">BookHeaven</a>
+<nav class="navbar navbar-expand-lg navbar-light custom-bg-color" style="background-color: white;"  th:fragment="admin-navigation">
+    <a class="admin-navbar-brand" th:href="@{/admin-page}">
+      Bookscape
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,7 +30,8 @@
             </li>
 
             <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<!--                class="btn btn-light dropdown-toggle"-->
+                <button class="btn btn-custom-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Change info
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -60,4 +60,7 @@ public interface BookService {
 
     void moveToRead(Long bookId, Long userId);
 
+    void deleteBooksByAuthorId(Long authorId);
+
+
 }

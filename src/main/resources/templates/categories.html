@@ -10,18 +10,19 @@
     <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
 </div>
 
-<div class="categories-container" th:each="category : ${allCategories}">
-    <p th:text="${category.name}"></p>
-
-    <div class="change-information-modal">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">
-            Change
-        </button>
-
+<div class="categories-change-container">
+    <div class="change-container" th:each="category : ${allCategories}">
+        <div class="category-item">
+            <p th:text="${category.name}"></p>
+            <button type="button" class="btn btn-success"
+                    data-toggle="modal"
+                    th:data-target="'#exampleModalCenter-' + ${category.id}">
+                Change
+            </button>
+        </div>
 
         <!-- Modal Change Info-->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        <div class="modal fade" th:id="'exampleModalCenter-' + ${category.id}" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -33,14 +34,10 @@
                     </div>
                     <div class="modal-body">
                         <form id="editForm" th:action="@{'/category/edit/' + ${category.id}}" method="post">
-
                             <label for="name">Name: </label>
                             <input type="text" id="name" name="name" th:value="${category.name}"><br>
-
-
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-success">Save changes</button>
                             </div>
                         </form>
@@ -49,8 +46,7 @@
             </div>
         </div>
     </div>
-
-
 </div>
+
 </body>
 </html>

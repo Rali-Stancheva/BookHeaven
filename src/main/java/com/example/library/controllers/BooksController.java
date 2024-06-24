@@ -88,12 +88,14 @@ public class BooksController {
         CurrentUser currentUser = userService.getCurrentUser();
         int userRating = bookService.getUserRatingForBook(id, currentUser.getId());
         model.addAttribute("userRating", userRating);
+        model.addAttribute("currentUser", currentUser);
 
         double averageRating = bookService.getAverageRatingForMovie(id);
         model.addAttribute("averageRating", averageRating);
 
         List<ReviewDTO> commentsForBook = reviewService.getCommentsForBook(id);
         model.addAttribute("commentsForBook", commentsForBook);
+
 
         return "book-details";
     }
@@ -102,6 +104,7 @@ public class BooksController {
     @GetMapping("/by-category/{categoryName}")
     public String getBooksByCategory(@PathVariable String categoryName, Model model) {
         List<BookDTO> booksByCategory = bookService.getBooksByCategoryName(categoryName);
+
         model.addAttribute("book", booksByCategory);
         model.addAttribute("categoryName", categoryName);
         return "books-by-category";
@@ -197,7 +200,7 @@ public class BooksController {
 
 
     @PostMapping("/rate/{id}")
-    public String rateMovie(@PathVariable Long id, @RequestParam int rating) {
+    public String rateBook(@PathVariable Long id, @RequestParam int rating) {
         CurrentUser currentUser = userService.getCurrentUser();
         User user = new User();
         user.setId(currentUser.getId());
@@ -209,12 +212,17 @@ public class BooksController {
 
 
     @PostMapping("/delete-rating/{id}")
-    public String deleteRating(@PathVariable Long id) {
+    public String deleteRating(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         CurrentUser currentUser = userService.getCurrentUser();
         User user = new User();
         user.setId(currentUser.getId());
 
-        bookService.removeRating(id, user);
+
+        try {
+            bookService.removeRating(id, user);
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Rating not found for this book.");
+        }
 
         return "redirect:/books/" + id;
     }
@@ -238,6 +246,19 @@ public class BooksController {
         }
 
         return "redirect:/books/" + reviewId;
+    }
+
+
+
+    @PostMapping("/delete-comment/{commentId}")
+    public String deleteReviewById(@PathVariable Long commentId) {
+        Review review = reviewService.getReviewById(commentId);
+
+        if (review.getUser().getId().equals(currentUser.getId())) {
+            reviewService.deleteReviewById(commentId);
+        }
+
+        return "redirect:/books/" + review.getBook().getId();
     }
 
 
@@ -267,16 +288,6 @@ public class BooksController {
     }
 
 
-//    @PostMapping("/edit/{id}")
-//    public String updateBook(@PathVariable Long id, @ModelAttribute BookDTO bookDTO) {
-//        Long authorId = null;
-//        if (bookDTO.getAuthor() != null) {
-//            authorId = bookDTO.getAuthor().getId();
-//        }
-//
-//        bookService.updateBook(id, bookDTO.getTitle(), bookDTO.getRating(), bookDTO.getDescription(), authorId);
-//        return "redirect:/books/{id}";
-//    }
 
     @PostMapping("/edit/{id}")
     public String updateBook(@ModelAttribute Book updatedBook,

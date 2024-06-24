@@ -3,6 +3,7 @@ package com.example.library.services;
 import com.example.library.models.DTOs.AuthorDTO;
 import com.example.library.models.DTOs.BookDTO;
 import com.example.library.models.entities.Author;
+import com.example.library.models.entities.AuthorImage;
 import com.example.library.models.entities.Book;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,11 +27,12 @@ public interface AuthorService {
 
     List<AuthorDTO> getAuthors();
 
-//    void updateAuthor(Long id, String newName, String newBio, LocalDate newBirthdate);
 
     void updateAuthor(Author author);
 
-    void deleteAuthorById(Long id);
+//    void deleteAuthorById(Long id);
 
     Author convertDtoToAuthor(AuthorDTO authorDTO);
+
+    Author saveAuthors(String name, String bio, LocalDate date,  MultipartFile file) throws IOException;
 }

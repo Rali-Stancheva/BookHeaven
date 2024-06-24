@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/head :: head}">
-  <meta charset="UTF-8">
-  <title>Add Book</title>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
 </head>
 <body>
 
 <div th:replace="~{fragments/admin-navigation :: admin-navigation }"></div>
 
-<h1>Add Book</h1>
 
-<form th:action="@{'/books/add'}" method="post" enctype="multipart/form-data">
-  <label for="title">Title:</label><br>
-  <input type="text" id="title" name="title"><br>
+<form class="add-form-container" th:action="@{'/books/add'}" method="post" enctype="multipart/form-data">
+    <h1>Add Book</h1>
 
-  <label for="publicationDate">Publish Date:</label><br>
-  <input type="date" id="publicationDate" name="publicationDate"><br>
+    <label class="field" for="title">Title:</label><br>
+    <input class="input-field" type="text" id="title" name="title"><br>
 
-  <label for="description">Description:</label><br>
-  <textarea id="description" name="description"></textarea><br>
+    <label class="field" for="publicationDate">Publish Date:</label><br>
+    <input class="input-field" type="date" id="publicationDate" name="publicationDate"><br>
 
-  <label for="rating">Rating:</label><br>
-  <input type="number" id="rating" name="rating" min="1" max="10" step="0.1"><br>
+    <label class="field" for="description">Description:</label><br>
+    <textarea class="input-field" id="description" name="description"></textarea><br>
 
-
-  <label for="author">Author: </label>
-  <select id="author" name="authorId" class="form-control" required>
-    <option value="" disabled selected hidden>Please select an author.</option>
-    <option th:each="author : ${allAuthors}" th:value="${author.id}" th:text="${author.getName()}"></option>
-  </select><br>
+    <label class="field" for="rating">Rating:</label><br>
+    <input class="input-field" type="number" id="rating" name="rating" min="1" max="10" step="0.1"><br>
 
 
-  <label for="category">Category: </label>
-  <select id="category" name="categoryId" class="form-control" required>
-    <option value="" disabled selected hidden>Please select a category.</option>
-    <option th:each="category : ${allCategories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
-  </select><br>
+    <label class="field"  for="author">Author: </label>
+    <select id="author" name="authorId" class="form-control" required>
+        <option value="" disabled selected hidden>Please select an author.</option>
+        <option th:each="author : ${allAuthors}" th:value="${author.id}" th:text="${author.getName()}"></option>
+    </select><br>
 
 
-  <label for="image">Image:</label>
-  <input type="file" id="image" name="image" required><br>
+    <label class="field" for="category">Category: </label>
+    <select id="category" name="categoryId" class="form-control" required>
+        <option value="" disabled selected hidden>Please select a category.</option>
+        <option th:each="category : ${allCategories}" th:value="${category.getId()}"
+                th:text="${category.getName()}"></option>
+    </select><br>
 
-  <label for="language">Language:</label><br>
-  <input type="text" id="language" name="language"><br>
 
-  <label for="publisher">Publisher:</label><br>
-  <input type="text" id="publisher" name="publisher"><br>
+    <label class="field" for="image">Image:</label>
+    <input class="input-field" type="file" id="image" name="image" required><br>
 
-  <label for="ISBN">ISBN:</label><br>
-  <input type="number" id="ISBN" name="ISBN"><br>
+    <label class="field" for="language">Language:</label><br>
+    <input class="input-field" type="text" id="language" name="language"><br>
 
-  <input type="submit" value="Add">
+    <label class="field" for="publisher">Publisher:</label><br>
+    <input class="input-field" type="text" id="publisher" name="publisher"><br>
+
+    <label class="field" for="ISBN">ISBN:</label><br>
+    <input class="input-field" type="number" id="ISBN" name="ISBN"><br>
+
+<!--    <input type="submit" value="Add">-->
+    <button class="add-form-send-btn" type="submit">Add</button>
 </form>
 
 </body>

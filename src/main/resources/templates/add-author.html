@@ -6,22 +6,26 @@
 <body>
 <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
 
-<h1>Add Authors</h1>
-<form th:action="@{'/authors/add'}" method="post" enctype="multipart/form-data">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" required><br>
 
-    <label for="bio">Bio:</label><br>
-    <textarea id="bio" name="bio" required></textarea><br>
+<form class="add-form-container" th:action="@{'/authors/add'}" method="post" enctype="multipart/form-data">
+    <h1>Add Authors</h1>
 
-    <label for="birthdate">Birthdate:</label><br>
-    <input type="date" id="birthdate" name="birthdate" required><br>
+    <label class="field" for="name">Name:</label><br>
+    <input class="input-field" type="text" id="name" name="name" required><br>
 
-    <label for="image">Image:</label>
-    <input type="file" id="image" name="image" required><br>
+    <label class="field" for="bio">Bio:</label><br>
+    <textarea class="input-field" id="bio" name="bio" required></textarea><br>
 
+    <label class="field" for="birthdate">Birthdate:</label><br>
+    <input class="input-field" type="date" id="birthdate" name="birthdate" required><br>
 
-    <input type="submit" value="Add">
+    <label class="field" for="image">Image:</label>
+    <input class="input-field" type="file" id="image" name="image" required><br>
+
+    <label class="field" for="imagesList">Gallery:</label><br>
+    <input class="input-field" type="file" id="imagesList" name="imagesList" multiple><br>
+
+    <button class="add-form-send-btn" type="submit">Add</button>
 </form>
 
 <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">

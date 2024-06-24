@@ -16,7 +16,7 @@
        <img class="img-book-by-category" th:src="@{'/uploads/' + ${b.image}}">
      </div>
     <div class="book-text">
-      <span th:text="${b.title}"></span> by <span th:text="${b.author.getName()}"></span><br>
+        <b><span th:text="${b.title}"></span></b> by <span th:text="${b.author.getName()}"></span><br>
     </div>
 
       <div class="book-readed-or-for-reading">

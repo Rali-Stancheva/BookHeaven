@@ -1,16 +1,21 @@
 body{
     font-family: Georgia, serif;
-    background-color: white;
+    /*background-color: rgba(253, 241, 197, 0.54);*/
+    /*background-color: white;*/
+
+    background-image: linear-gradient(16deg, rgba(116,116,116, 0.1) 0%, rgba(116,116,116, 0.1) 25%,transparent 25%, transparent 96%,rgba(177,177,177, 0.36) 96%, rgba(177,177,177, 0.36) 100%),linear-gradient(236deg, rgba(148,148,148, 0.06) 0%, rgba(148,148,148, 0.06) 53%,transparent 53%, transparent 59%,rgba(56,56,56, 0) 59%, rgba(56,56,56, 0) 100%),linear-gradient(284deg, rgba(16, 16, 16,0.02) 0%, rgba(16, 16, 16,0.02) 46%,transparent 46%, transparent 71%,rgba(181, 181, 181,0.02) 71%, rgba(181, 181, 181,0.02) 100%),linear-gradient(316deg, rgba(197,197,197, 0.1) 0%, rgba(197,197,197, 0.1) 26%,transparent 26%, transparent 49%,rgba(58, 58, 58,0.02) 49%, rgba(58, 58, 58,0.02) 100%),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
 }
 
 .navbar {
-    height: 50px;
+    /*height: 50px;*/
+    height: 60px;
 }
 
 
 /*FOOTER*/
 .bg-custom-color{
-    background-color: #c26236;
+    background-color: #04030394;
+    /*background-color: #6b3217ad;*/
     position: relative;
     bottom: 0;
     left: 0;
@@ -143,6 +148,11 @@ body{
 }
 
 
+.book-description{
+    line-height: 2;
+    margin-top: 32px;
+}
+
 
 /* BOOK CARDS - index.html*/
 
@@ -176,7 +186,7 @@ body{
 }
 
 .categories-btn{
-    border: 1px solid black;
+    border: 1px solid #be501e;
     color: black;
     border-radius: 100px;
     width: 120px;
@@ -293,10 +303,151 @@ body{
 
 
 .rate-button-logged{
-    background-color: white;
+    background-color: transparent;
     border: none;
 }
 
 
+.comments h3{
+    margin-top: 38px;
+}
 
-/*LOGIN PAGE - auth-login.html*/
+.text-area-comments{
+    border-radius: 5px;
+}
+
+.comment-send-btn{
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    margin-top: 10px;
+    margin-bottom: 60px;
+}
+
+.comment-send-btn:hover {
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
+
+
+.rate-button,
+.rate-button-logged{
+    margin-top: 20px;
+    margin-left: 84px;
+    margin-bottom: 12px;
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#rating-form,
+#delete-rating-form {
+    display: inline-block;
+    margin-left: 76px;
+}
+
+#rating-form .button-container {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#delete-rating-form .delete-rating-btn {
+    margin-left: 10px;
+}
+
+.modal-rate-btn,
+.delete-rating-btn {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.delete-rating-btn{
+    margin-top: -57px;
+    margin-left: 112px;
+    background-color: white;
+    border: none;
+    color: rgb(49, 86, 108);
+    font-size: 16px;
+
+}
+
+.modal-rate-btn{
+    margin-top: 77px;
+    margin-left: -137px;
+    background-color: white;
+    border: none;
+    color: rgb(49, 86, 108);
+    font-size: 16px;
+}
+
+
+.delete-comment-btn {
+    align-items: center;
+    background-color: #FFE7E7;
+    background-position: 0 0;
+    border: 1px solid #FEE0E0;
+    border-radius: 11px;
+    box-sizing: border-box;
+    color: #D33A2C;
+    cursor: pointer;
+    display: flex;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 18.4929px;
+    padding: 2px 12px;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: none;
+    text-underline-offset: 1px;
+    transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    word-break: break-word;
+}
+
+
+.delete-comment-btn:active,
+.delete-comment-btn:hover,
+.delete-comment-btn:focus {
+    outline: 0;
+}
+
+
+.delete-comment-btn:active {
+    background-color: #D33A2C;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+    color: #FFFFFF;
+}
+
+.delete-comment-btn:hover {
+    background-color: #FFE3E3;
+    border-color: #FAA4A4;
+}
+
+.delete-comment-btn:active:hover,
+.delete-comment-btn:focus:hover,
+.delete-comment-btn:focus {
+    background-color: #D33A2C;
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px 0 inset;
+    color: #FFFFFF;
+}
+

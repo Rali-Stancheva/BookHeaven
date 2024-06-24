@@ -59,7 +59,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDTO> getBooks() {
-
         return this.bookRepository
                 .findAll()
                 .stream()
@@ -198,6 +197,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDTO> getBooksByCategoryName(String categoryName) {
         Category category = categoryRepository.findByName(categoryName);
+
         return bookRepository
                 .findByCategory(category)
                 .stream()
@@ -210,6 +210,7 @@ public class BookServiceImpl implements BookService {
     public void rateBook(Long bookId, int rating, User user) {
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + bookId));
+
 
         RatingFromUser existingRating = ratingFromUserRepository.findByBookAndUser(book, user);
 
@@ -318,6 +319,12 @@ public class BookServiceImpl implements BookService {
 
         forReadingRepository.delete(forReading);
     }
+
+    @Override
+    public void deleteBooksByAuthorId(Long authorId) {
+        bookRepository.deleteByAuthorId(authorId);
+    }
+
 
 
     @Override

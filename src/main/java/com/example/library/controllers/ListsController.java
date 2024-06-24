@@ -3,10 +3,12 @@ package com.example.library.controllers;
 import com.example.library.models.entities.Lists;
 import com.example.library.services.ListsService;
 import com.example.library.util.CurrentUser;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -52,26 +54,24 @@ public class ListsController {
 
         Lists newList = listsService.createList(username, listName);
 
-        return "redirect:/lists/" + newList.getId();
+//        return "redirect:/lists/" + newList.getId();
+        return "redirect:/lists/user-list";
 
     }
 
-//    @PostMapping("/create")
-//    public String createList(@RequestParam String listName, Model model) {
-//        String username = currentUser.getUsername();
-//        Lists newList = listsService.createList(username, listName);
-//        List<Lists> userList = listsService.getUserList(username);
-//
-//        model.addAttribute("userList", userList);
-//        model.addAttribute("newListId", newList.getId());
-//        return "list-info";
-//    }
 
 
     @PostMapping("/{listId}/bookByName")
-    public String addBookToList(@PathVariable Long listId, @RequestParam String bookName) {
-        listsService.addBookToListByName(listId, bookName);
-        return "redirect:/lists/user-list";
+    public String addBookToList(@PathVariable Long listId, @RequestParam String bookName, RedirectAttributes redirectAttributes) {
+
+        try {
+            listsService.addBookToListByName(listId, bookName);
+            return "redirect:/lists/user-list";
+        } catch (EntityNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "noSuchBook";
+        }
+
     }
 
 
@@ -79,13 +79,10 @@ public class ListsController {
 
     @GetMapping("/{listId}")
     public String viewList(@PathVariable Long listId, Model model) {
-//        String username = currentUser.getUsername();
-//        List<Watchlist> watchlist = watchlistService.getUserWatchlist(username);
-//        model.addAttribute("watchlist", watchlist);
 
         Lists lists = listsService.getListById(listId);
         model.addAttribute("lists", lists);
-        return "list-info";
+        return "redirect:/lists/user-list";
     }
 
 }

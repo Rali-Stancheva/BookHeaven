@@ -3,6 +3,7 @@ package com.example.library.models.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Authors")
@@ -23,6 +24,8 @@ public class Author {
     @Column(name = "image")
     private String image;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AuthorImage> imagesList;
 
     public Author() {
 
@@ -73,5 +76,13 @@ public class Author {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<AuthorImage> getImagesList() {
+        return imagesList;
+    }
+
+    public void setImagesList(List<AuthorImage> imagesList) {
+        this.imagesList = imagesList;
     }
 }

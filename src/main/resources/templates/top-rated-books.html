@@ -1,50 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/head :: head}">
-    <title>Top Rated</title>
+    <title>Books</title>
 </head>
+
 <body>
-<div th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
-    <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
-</div>
-<div th:unless="${@currentUser.isLogged() and @currentUser.isAdmin()}">
-    <div th:replace="~{fragments/navigation :: navigation}"></div>
-</div>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
 
-<main role="main" class="flex-shrink-0">
+<h2 class="top-rated-text">TOP RATED BOOKS</h2>
 
-    <h2>Top rated books</h2>
-
-    <div th:each="book : ${topRatedBooks}">
-
-        <div class="img-container" >
-            <a th:href="@{'/books/' + ${book.id}}">
-                <img class="img-book" th:src="@{${book.imageUrl}}">
-            </a>
+<div class="book-container">
+    <div class="book-row" th:each="b : ${topRatedBooks}">
+        <div class="img-container">
+            <img class="img-book-by-category" th:src="@{'/uploads/' + ${b.image}}">
+        </div>
+        <div class="book-text">
+           <b><span th:text="${b.title}"></span></b>  by <span th:text="${b.author.getName()}"></span><br>
         </div>
 
-        <div class="book-text">
-            <h3 th:text="${book.title}"></h3>
-            <p>Author: <span th:text="${book.author.name}"></span></p>
-            <p>Category: <span th:text="${book.category.name}"></span></p>
-            <p class="card-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ff6600" class="bi bi-star-fill" viewBox="0 0 16 16">
-                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                </svg>
-                <span class="rating-text" th:text="${book.rating}"></span>
-            </p>
-
-            <div  class="change-area"th:if="${@currentUser.isLogged() and @currentUser.isAdmin()}">
-                <a class="change-button" th:href="@{/books/{id}(id=${book.id})}"> Change </a>
+        <div class="book-readed-or-for-reading">
+            <div class="see-more-info" th:if="${@currentUser.isLogged()}">
+                <form th:action="@{'/books/' + ${b.id}}">
+                    <button type="submit" class="btn-see-more-info">See more</button>
+                </form>
             </div>
 
-        </div>
-    </div>
-</main>
+            <div class="see-more-info" th:unless="${@currentUser.isLogged()}">
+                <a th:href="@{/users/login}" class="btn-see-more-info">See more</a>
+            </div>
 
-<!--<div>-->
-<!--  <footer th:replace="~{fragments/footer :: footer}"></footer>-->
-<!--</div>-->
+
+
+
+            <div class="readed" th:if="${@currentUser.isLogged()}">
+                <form th:action="@{'/books/add-to-read/' + ${@currentUser.getId()} + '/' + ${b.id}}" method="post">
+                    <button type="submit" class="btn-readed-book">Read</button>
+                </form>
+            </div>
+
+            <div class="readed" th:unless="${@currentUser.isLogged()}">
+                <a th:href="@{/users/login}" class="btn-readed-book">Read</a>
+            </div>
+
+            <div class="for-reading" th:if="${@currentUser.isLogged()}">
+                <form th:action="@{'/books/add-to-for-reading/' + ${@currentUser.getId()} + '/' + ${b.id}}" method="post">
+                    <button type="submit" class="btn-for-reading">For Reading</button>
+                </form>
+            </div>
+            <div class="for-reading" th:unless="${@currentUser.isLogged()}">
+                <a th:href="@{/users/login}" class="btn-for-reading">For Reading</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 </body>
 </html>

@@ -6,6 +6,14 @@
     margin-left: 200px; /* Леко подравнява контейнера в ляво */
 }
 
+/*.news-details-container {*/
+/*    max-width: 800px;*/
+/*    margin: 0 auto;*/
+/*    padding: 60px;*/
+/*    text-align: justify;*/
+/*    margin-left: 215px;*/
+/*}*/
+
 .news-details-container p {
     display: inline-block; /* Позволява на text-align да работи правилно */
 }
@@ -16,33 +24,11 @@
     padding-top: 35px;
 }
 
-.news-details-img{
-    height: auto;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-    padding-bottom: 90px;
-}
-
-
-.news-details-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 60px;
-    text-align: justify;
-    margin-left: 215px;
-}
 
 .news-details-container p {
     display: inline-block;
 }
 
-.news-details-title {
-    text-align: center;
-    padding-bottom: 34px;
-    padding-top: 35px;
-}
 
 .news-details-img {
     height: auto;

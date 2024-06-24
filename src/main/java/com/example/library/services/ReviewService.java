@@ -10,4 +10,8 @@ public interface ReviewService {
     void addCommentToBooks(Long bookId, Review review, User user);
 
     List<ReviewDTO> getCommentsForBook(Long bookId);
+
+    Review getReviewById(Long id);
+
+    void deleteReviewById(Long id);
 }

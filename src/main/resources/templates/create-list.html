@@ -27,6 +27,7 @@
   <h2>Existing Lists</h2>
   <div class="exist">
     <div th:each="list : ${userList}" class="category">
+<!--      <a class="category-name see-more" th:href="@{'/lists/' + ${list.id}}" th:text="${list.name}">List Name</a>-->
       <a class="category-name see-more" th:href="@{'/lists/' + ${list.id}}" th:text="${list.name}">List Name</a>
     </div>
   </div>

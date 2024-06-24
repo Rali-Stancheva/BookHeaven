@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class ListsServiceImpl implements ListsService {
 
-   private final ListsRepository listsRepository;
+    private final ListsRepository listsRepository;
 
     private final UserRepository userRepository;
 
@@ -59,6 +59,7 @@ public class ListsServiceImpl implements ListsService {
 
 
         Optional<Book> optionalBook = bookRepository.findByTitle(bookName);
+
         Book book = optionalBook.orElseThrow(() -> new EntityNotFoundException("Book not found with title: " + bookName));
 
 

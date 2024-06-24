@@ -37,24 +37,21 @@
                         </div>
                         <div class="modal-body">
                             <form id="editForm" th:action="@{'/news/edit/' + ${news.id}}"  method="post" enctype="multipart/form-data">
-                                <label for="title">Title: </label>
-                                <input type="text" id="title" name="title" th:value="${news.title}"><br>
+                                <label class="field" for="title">Title: </label><br>
+                                <input class="input-change-info-field" type="text" id="title" name="title" th:value="${news.title}"><br>
 
-                                <label for="content">Content: </label>
-                                <textarea id="content" name="content"
+                                <label class="field" for="content">Content: </label><br>
+                                <textarea class="input-change-info-field" id="content" name="content"
                                           th:text="${news.content}"></textarea><br>
 
-                                <label for="date">Date: </label>
-                                <input type="date" id="date" name="date" th:value="${news.date}"><br>
+                                <label class="field" for="date">Date: </label><br>
+                                <input class="input-change-info-field" type="date" id="date" name="date" th:value="${news.date}"><br>
 
-                                <label for="shortDescription">Short description: </label>
-                                <input type="text" id="shortDescription" name="shortDescription" th:value="${news.shortDescription}"><br>
+                                <label class="field" for="shortDescription">Short description: </label><br>
+                                <input class="input-change-info-field" type="text" id="shortDescription" name="shortDescription" th:value="${news.shortDescription}"><br>
 
-
-<!--                                <label for="image">Image:</label>-->
-<!--                                <input type="file" id="image" name="image"><br>-->
-                                <label for="file">Image:</label><br>
-                                <input type="file" id="file" name="file" />
+                                <label class="field" for="file">Image:</label><br>
+                                <input class="input-change-info-field" type="file" id="file" name="file" />
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -107,7 +104,7 @@
 
     <h2 class="news-details-title" th:text="${news.title}"></h2>
 
-    <img th:src="@{'/uploads/' + ${news.image}}" alt="Image">
+    <img class="news-details-img" th:src="@{'/uploads/' + ${news.image}}" alt="Image">
 
     <div class="like-btn-container">
         <form th:action="@{/likes/like}" method="post">

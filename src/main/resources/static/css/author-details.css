@@ -1,4 +1,4 @@
-.author-container {
+.author-details-container {
     max-width: 800px;
     margin: 0px auto;
     padding: 30px;
@@ -15,11 +15,11 @@
     margin-bottom: 20px;
 }
 
-.author-container img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+/*.author-details-container img {*/
+/*    max-width: 100%;*/
+/*    height: auto;*/
+/*    display: block;*/
+/*}*/
 
 
 .random-books-by-author-container {
@@ -50,4 +50,18 @@
     width: 70px;
     height: 70px;
     margin-right: 20px;
+}
+
+
+.author-gallery-container{
+    display: inline-grid;
+    gap: 5px;
+    max-width: 900px;
+    margin: 11px 9px 26px auto;
+}
+
+.gallery-images{
+    width: 300px;
+    height: 200px;
+    margin-left: 59px;
 }

@@ -3,6 +3,8 @@ package com.example.library.models.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Books")
@@ -32,7 +34,6 @@ public class Book {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-
     @Column(name = "image")
     private String image;
 
@@ -44,6 +45,7 @@ public class Book {
 
     @Column
     private String ISBN;
+
 
 
     public Book() {

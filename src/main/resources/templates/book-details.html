@@ -15,7 +15,6 @@
 
 <div class="container">
     <div class="book-img">
-        <!--        <img th:src="@{${book.imageUrl}}">-->
         <img th:src="@{'/uploads/' + ${book.image}}">
 
         <!--WANT-TO-READ BUTTON-->
@@ -54,14 +53,6 @@
 
 
         <!--   NEW  - RATING -->
-        <p th:if="${@currentUser.isLogged() and not @currentUser.isAdmin() and averageRating != null and averageRating != 0.0}">
-            Average Rating: <span th:text="${averageRating}"></span>
-        </p>
-
-        <p th:if="${@currentUser.isLogged() and not @currentUser.isAdmin() and userRating != null and userRating != 0}">
-            Your Rating: <span th:text="${userRating}"></span>
-        </p>
-
         <button type="button" class="rate-button-logged"
                 th:if="${@currentUser.isLogged()} and not ${@currentUser.isAdmin()}" data-toggle="modal"
                 data-target="#ratingModal">
@@ -79,6 +70,14 @@
             </svg>
             Rate
         </a>
+
+        <p th:if="${@currentUser.isLogged() and not @currentUser.isAdmin() and averageRating != null and averageRating != 0.0}">
+            <b>Average Rating:</b> <span th:text="${averageRating}"></span>
+        </p>
+
+        <p th:if="${@currentUser.isLogged() and not @currentUser.isAdmin() and userRating != null and userRating != 0}">
+            <b>Your Rating:</b> <span th:text="${userRating}"></span>
+        </p>
 
 
     </div>
@@ -108,29 +107,30 @@
                             <div class="modal-body">
                                 <form id="editForm" th:action="@{'/books/edit/' + ${book.id}}" method="post"
                                       enctype="multipart/form-data">
-                                    <label for="title">Title: </label>
-                                    <input type="text" id="title" name="title" th:value="${book.title}" required><br>
 
-                                    <label for="publicationDate">Publication Date: </label>
-                                    <input type="date" id="publicationDate" name="publicationDate"
+                                    <label class="field" for="title">Title: </label><br>
+                                    <input class="input-change-info-field" type="text" id="title" name="title" th:value="${book.title}" required><br>
+
+                                    <label class="field" for="publicationDate">Publication Date: </label><br>
+                                    <input class="input-change-info-field" type="date" id="publicationDate" name="publicationDate"
                                            th:value="${book.publicationDate}" required><br>
 
-                                    <label for="description">Description: </label>
-                                    <textarea id="description" name="description"
+                                    <label class="field" for="description">Description: </label><br>
+                                    <textarea class="input-change-info-field" id="description" name="description"
                                               th:text="${book.description}"></textarea><br>
 
-                                    <label for="rating">Rating: </label>
-                                    <input type="text" id="rating" name="rating" th:value="${book.rating}" required><br>
+                                    <label class="field" for="rating">Rating: </label><br>
+                                    <input class="input-change-info-field"type="text" id="rating" name="rating" th:value="${book.rating}" required><br>
 
 
-                                    <label for="author">Author: </label>
+                                    <label class="field" for="author">Author: </label><br>
                                     <select id="author" name="authorId" class="form-control" required>
                                         <option th:each="author : ${authors}" th:value="${author.id}"
                                                 th:text="${author.name}"
                                                 th:selected="${author.id} == ${book.author.id}"></option>
                                     </select><br>
 
-                                    <label for="category">Category: </label>
+                                    <label class="field" for="category">Category: </label><br>
                                     <select id="category" name="categoryId" class="form-control" required>
                                         <option value="" disabled selected hidden>Please select a category.</option>
                                         <option th:each="category : ${allCategories}" th:value="${category.id}"
@@ -138,17 +138,19 @@
                                                 th:selected="${category.id} == ${book.category.id}"></option>
                                     </select><br>
 
-                                    <label for="ISBN">ISBN: </label>
-                                    <input type="text" id="ISBN" name="ISBN"  th:value="${book.ISBN}" required><br>
+                                    <label class="field" for="ISBN">ISBN: </label><br>
+                                    <input class="input-change-info-field" type="text" id="ISBN" name="ISBN" th:value="${book.ISBN}" required><br>
 
-                                    <label for="language">Language:</label><br>
-                                    <input type="text" id="language" name="language" th:value="${book.language}" required><br>
+                                    <label class="field" for="language">Language:</label><br>
+                                    <input class="input-change-info-field"type="text" id="language" name="language" th:value="${book.language}"
+                                           required><br>
 
-                                    <label for="publisher">Publisher:</label><br>
-                                    <input type="text" id="publisher" name="publisher"  th:value="${book.publisher}" required><br>
+                                    <label class="field" for="publisher">Publisher:</label><br>
+                                    <input class="input-change-info-field" type="text" id="publisher" name="publisher" th:value="${book.publisher}"
+                                           required><br>
 
-                                    <label for="file">Image:</label><br>
-                                    <input type="file" id="file" name="file"/>
+                                    <label class="field" for="file">Image:</label><br>
+                                    <input class="input-change-info-field" type="file" id="file" name="file"/>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -199,22 +201,29 @@
 
         <div class="book-info">
             <h1 th:text="${book.title}"></h1>
-            <p>Author:
+            <p><b>Author:</b>
                 <a th:href="@{'/authors/' + ${book.getAuthor().getId()}}">
                     <span th:text="${book.author.getName()}"></span>
                 </a>
             </p>
-            <p>Language: <span th:text="${book.language}"></span></p>
-            <p>Publisher: <span th:text="${book.publisher}"></span></p>
-            <p>ISBN: <span th:text="${book.ISBN}"></span></p>
-            <p>Rating: <span th:text="${book.rating}"></span></p>
-            <p th:text="${book.description}"></p>
+            <p><b>Language:</b> <span th:text="${book.language}"></span></p>
+            <p><b>Publisher:</b> <span th:text="${book.publisher}"></span></p>
+            <p><b>ISBN:</b> <span th:text="${book.ISBN}"></span></p>
+            <p><b>Rating:</b> <span th:text="${book.rating}"></span></p>
+            <p class="book-description" th:text="${book.description}"></p>
             <div class="comments">
                 <h3>Comments</h3>
                 <div th:each="comment : ${commentsForBook}">
                     <p><strong th:text="${comment.user.username}">Username</strong></p>
-                    <p th:text="${comment.comments}">Comment</p>
                     <p th:text="${comment.postDate}">Comment Date</p>
+                    <p th:text="${comment.comments}">Comment</p>
+
+                    <form th:action="@{'/books/delete-comment/' + ${comment.id}}" method="post"
+                          th:if="${comment.user.id == currentUser.id}">
+                        <input type="hidden" th:name="commentId" th:value="${comment.id}"/>
+                        <button class="delete-comment-btn" type="submit">Delete</button>
+                    </form>
+
                     <hr>
                 </div>
 
@@ -222,8 +231,11 @@
                 <form method="post" th:action="@{'/books/comments/' + ${book.id}}"
                       th:if="${not @currentUser.isAdmin()}">
                     <textarea class="text-area-comments" id="comment" name="comment" type="text" rows="4" cols="50"
-                              required></textarea>
-                    <button type="submit">Send</button>
+                              placeholder="Let us know what you think..." required></textarea>
+                    <div class="comment-btn-area">
+                        <button class="comment-send-btn" type="submit">Send</button>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -239,49 +251,55 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="ratingModalLabel">Rate Book</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
+
                 <div class="rating-container">
+
                     <form id="rating-form" th:action="@{'/books/rate/' + ${book.id}}" method="post">
-                        <input type="radio" id="rating-1" name="rating" value="1">
+                        <input type="radio" id="rating-1" name="rating" value="1" required>
                         <label for="rating-1">1</label>
 
-                        <input type="radio" id="rating-2" name="rating" value="2">
+                        <input type="radio" id="rating-2" name="rating" value="2" required>
                         <label for="rating-2">2</label>
 
-                        <input type="radio" id="rating-3" name="rating" value="3">
+                        <input type="radio" id="rating-3" name="rating" value="3" required>
                         <label for="rating-3">3</label>
 
-                        <input type="radio" id="rating-4" name="rating" value="4">
+                        <input type="radio" id="rating-4" name="rating" value="4" required>
                         <label for="rating-4">4</label>
 
-                        <input type="radio" id="rating-5" name="rating" value="5">
+                        <input type="radio" id="rating-5" name="rating" value="5" required>
                         <label for="rating-5">5</label>
 
-                        <input type="radio" id="rating-6" name="rating" value="6">
+                        <input type="radio" id="rating-6" name="rating" value="6" required>
                         <label for="rating-6">6</label>
 
-                        <input type="radio" id="rating-7" name="rating" value="7">
+                        <input type="radio" id="rating-7" name="rating" value="7" required>
                         <label for="rating-7">7</label>
 
-                        <input type="radio" id="rating-8" name="rating" value="8">
+                        <input type="radio" id="rating-8" name="rating" value="8" required>
                         <label for="rating-8">8</label>
 
-                        <input type="radio" id="rating-9" name="rating" value="9">
+                        <input type="radio" id="rating-9" name="rating" value="9" required>
                         <label for="rating-9">9</label>
 
-                        <input type="radio" id="rating-10" name="rating" value="10">
+                        <input type="radio" id="rating-10" name="rating" value="10" required>
                         <label for="rating-10">10</label>
 
+                        <div class="button-container">
+                            <button type="submit" class="modal-rate-btn">Rate</button>
+                        </div>
 
-                        <button type="submit" class="btn btn-secondary">Rate</button>
 
                     </form>
-
                     <form id="delete-rating-form" th:action="@{'/books/delete-rating/' + ${book.id}}" method="post">
-                        <button type="submit" class="btn text-black">Delete Rating</button>
+                        <button type="submit" class="delete-rating-btn">Delete Rating</button>
                     </form>
+
                 </div>
             </div>
         </div>

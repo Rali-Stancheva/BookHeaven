@@ -6,12 +6,14 @@
 <body>
 <div th:replace="~{fragments/admin-navigation :: admin-navigation}"></div>
 
-<h1>Add Category</h1>
-<form th:action="@{'/category/add'}" method="post">
-  <label for="name">Name:</label><br>
-  <input type="text" id="name" name="name" required><br>
 
-  <input type="submit" value="Add">
+<form class="add-form-category-container" th:action="@{'/category/add'}" method="post">
+  <h1>Add Category</h1>
+
+  <label class="field" for="name">Name:</label><br>
+  <input class="input-field" type="text" id="name" name="name" required><br>
+
+  <button class="add-form-send-btn" type="submit">Add</button>
 </form>
 
 <div th:if="${errorMessage != null}" class="alert alert-danger" role="alert">

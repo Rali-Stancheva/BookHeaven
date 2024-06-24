@@ -2,9 +2,9 @@ package com.example.library.services.impl;
 
 import com.example.library.models.DTOs.AuthorDTO;
 import com.example.library.models.entities.Author;
+import com.example.library.models.entities.AuthorImage;
 import com.example.library.models.entities.Book;
-import com.example.library.repositories.AuthorRepository;
-import com.example.library.repositories.BookRepository;
+import com.example.library.repositories.*;
 import com.example.library.services.AuthorService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +31,26 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final FileStorageService fileStorageService;
+    private final AuthorImageRepository authorImageRepository;
+    private final ListsRepository listsRepository;
+    private final ForReadingRepository forReadingRepository;
+    private final ReadRepository readRepository;
+
 
     @Value("${file.upload-dir}")
     private String uploadDir;
 
 
     @Autowired
-    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository, FileStorageService fileStorageService) {
+    public AuthorServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository, FileStorageService fileStorageService, AuthorImageRepository authorImageRepository, ListsRepository listsRepository, ForReadingRepository forReadingRepository, ReadRepository readRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.fileStorageService = fileStorageService;
+        this.authorImageRepository = authorImageRepository;
+        this.listsRepository = listsRepository;
+        this.forReadingRepository = forReadingRepository;
+
+        this.readRepository = readRepository;
     }
 
 
@@ -89,7 +99,8 @@ public class AuthorServiceImpl implements AuthorService {
                 author.getName(),
                 author.getBio(),
                 author.getBirthdate(),
-                author.getImage());
+                author.getImage(),
+                author.getImagesList());
     }
 
     @Override
@@ -112,10 +123,11 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void updateAuthor(Author updatedAuthor) {
-        Optional<Author> actorOptional = authorRepository.findById(updatedAuthor.getId());
+        Optional<Author> authorOptional = authorRepository.findById(updatedAuthor.getId());
 
-        if (actorOptional.isPresent()) {
-            Author author = actorOptional.get();
+        if (authorOptional.isPresent()) {
+            Author author = authorOptional.get();
+
             author.setName(updatedAuthor.getName());
             author.setBio(updatedAuthor.getBio());
             author.setBirthdate(updatedAuthor.getBirthdate());
@@ -128,20 +140,31 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
 
-    @Override
-    @Transactional
-    public void deleteAuthorById(Long id) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
-
-        String photoFileName = author.getImage();
-
-        bookRepository.deleteByAuthorId(id);
-        authorRepository.deleteById(id);
-
-        if (photoFileName != null && !photoFileName.isEmpty()) {
-            fileStorageService.deleteFile(photoFileName);
-        }
-    }
+//    @Override
+//    @Transactional
+//    public void deleteAuthorById(Long id) {
+//        Author author = authorRepository.findById(id).orElseThrow(() -> new RuntimeException("Author not found"));
+//
+//        String photoFileName = author.getImage();
+//
+//
+////        readRepository.deleteByBookId(id);
+////        forReadingRepository.deleteByBookId(id);
+////        listsRepository.deleteByBooksId(id);
+////        bookRepository.deleteByAuthorId(id);
+////        bookRepository.deleteById(id);
+//
+//
+//
+////        Author author = authorRepository.findById(id)
+////                .orElseThrow(() -> new RuntimeException("Author not found"));
+////
+////        // Delete books by author
+////        bookService.deleteBooksByAuthorId(author.getId());
+////
+////        // Now delete the author
+////        authorRepository.deleteById(id);
+//    }
 
 
     @Override
@@ -156,4 +179,23 @@ public class AuthorServiceImpl implements AuthorService {
 
         return author;
     }
+
+
+//
+
+    @Override
+    public Author saveAuthors(String name, String bio, LocalDate birthdate,  MultipartFile file) throws IOException {
+        String fileName = file.getOriginalFilename();
+        Path copyLocation = Paths.get(uploadDir + File.separator + fileName);
+        Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+
+        Author author = new Author();
+        author.setName(name);
+        author.setBio(fileName);
+        author.setBirthdate(birthdate);
+        author.setImage(fileName);
+
+        return authorRepository.save(author);
+    }
+
 }

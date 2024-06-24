@@ -3,6 +3,7 @@
 <head th:replace="~{fragments/head :: head}">
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 
@@ -13,14 +14,27 @@
     <div th:replace="~{fragments/navigation :: navigation}"></div>
 </div>
 
+<div class="author-container" th:each="a : ${allAuthorsInfo}">
+    <div class="card-wrapper">
+        <div class="author-card" >
+            <div class="card-author-image">
+                <img th:src="@{'/uploads/' + ${a.image}}">
+            </div>
 
+            <ul class="social-icons">
+                <li>
+                    <a th:href="@{'/authors/' + ${a.id}}" class="btn btn-primary">Мore</a>
+                </li>
 
-<div class="card" style="width: 18rem;" th:each="a : ${allAuthorsInfo}">
-    <img th:src="@{'/uploads/' + ${a.image}}" class="card-img-top" alt="Author Image">
-    <div class="card-body">
-        <h5 class="card-title" th:text="${a.name}"></h5>
-        <a th:href="@{'/authors/' + ${a.id}}" class="btn btn-primary">See more</a>
+            </ul>
+
+            <div class="details">
+                <h2 th:text="${a.name}"></h2>
+            </div>
+        </div>
     </div>
 </div>
+
+
 </body>
 </html>

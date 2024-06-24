@@ -1,0 +1,13 @@
+
+.form-control{
+    border-radius: 50px;
+    display: inline-block;
+    width: 429px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.user-profile-label{
+    border-radius: 50px;
+    display: inline-block;
+    width: 500px;
+}

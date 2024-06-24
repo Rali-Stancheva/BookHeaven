@@ -1,16 +1,16 @@
 
-.book-text {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
+/*.book-search-text {*/
+/*    display: inline-block;*/
+/*    vertical-align: top;*/
+/*    margin-right: 20px;*/
+/*    margin-top: 30px;*/
+/*    margin-bottom: 30px;*/
+/*}*/
 
-.book-container {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
-}
+/*.book-container {*/
+/*    border-bottom: 1px solid #ccc;*/
+/*    padding-bottom: 20px;*/
+/*}*/
 
 .change-area{
     background-color: rgba(255, 0, 0, 0.81);
@@ -35,20 +35,55 @@
     color: rgba(255, 0, 0, 0.81);
 }
 
-.img-container{
-    display: inline-block;
-    width: 200px;
-    height: 300px;
+/*.img-search-container{*/
+/*    display: inline-block;*/
+/*    width: 200px;*/
+/*    height: 300px;*/
+/*}*/
+
+
+/*.img-search-book {*/
+/*    width: 92%;*/
+/*    height: auto;*/
+/*    margin: 20px;*/
+/*    transition: transform 0.3s ease; !* Добавяне на преход за плавно увеличаване *!*/
+/*}*/
+
+/*.img-container:hover .img-book {*/
+/*    transform: scale(1.1); !* Леко увеличаване на изображението *!*/
+/*}*/
+
+.book-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid #989797;
+    padding: 20px;
 }
 
+.book-text {
+    flex-grow: 1;
+    margin-left: 10px;
+}
 
-.img-book {
-    width: 92%;
+.img-search-container {
+    width: 100px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.img-book-search {
+    width: 90%;
     height: auto;
     margin: 20px;
-    transition: transform 0.3s ease; /* Добавяне на преход за плавно увеличаване */
 }
 
-.img-container:hover .img-book {
-    transform: scale(1.1); /* Леко увеличаване на изображението */
+
+.book-search-text{
+    font-size: 16px;
+}
+
+.see-more-info,
+.change-area{
+    margin-left: 600px;
 }

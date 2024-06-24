@@ -28,59 +28,28 @@ public class HomeController {
         this.newsService = newsService;
     }
 
-//    @GetMapping
-//    public String getLastPublishedBooks(Model model) {
-//
-//        List<BookDTO> allBooks = bookService.getBooks();
-//
-//        List<BookDTO> latestBooks = allBooks.stream()
-//                .sorted(Comparator.comparing(BookDTO::getPublication_date).reversed())
-//                .limit(6)
-//                .collect(Collectors.toList());
-//
-//        model.addAttribute("lastPublishedBooks", latestBooks);
-//        return "index";
-//    }
-
 
     @GetMapping("/")
     public String getLastPublishedBooksAndNews(Model model) {
-        // Fetch and sort books
         List<BookDTO> latestBooks = bookService.getBooks().stream()
                 .sorted(Comparator.comparing(BookDTO::getPublicationDate).reversed())
                 .limit(6)
                 .collect(Collectors.toList());
 
-        // Add books to the model
         model.addAttribute("lastPublishedBooks", latestBooks);
 
-        // Fetch and sort news
+
+
         List<NewsDTO> latestNews = newsService.getNews().stream()
                 .sorted(Comparator.comparing(NewsDTO::getDate).reversed())
                 .limit(4)
                 .collect(Collectors.toList());
 
-        // Add news to the model
         model.addAttribute("lastPublishedNews", latestNews);
 
-        // Return the index template
         return "index";
+
     }
-
-
-//    @GetMapping("/latestNews")
-//    public String getLastPublishedNews(Model model) {
-//
-//        List<NewsDTO> allNews = newsService.getNews();
-//
-//        List<NewsDTO> latestNews = allNews.stream()
-//                .sorted(Comparator.comparing(NewsDTO::getDate).reversed())
-//                .limit(6)
-//                .collect(Collectors.toList());
-//
-//        model.addAttribute("lastPublishedNews", latestNews);
-//        return "index";
-//    }
 
 
 }
